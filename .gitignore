@@ -1,3 +1,6 @@
 .idea/
-out/
+.mvn/
+target/
+mvnw
+mvnw.cmd
 PSS-project.iml
