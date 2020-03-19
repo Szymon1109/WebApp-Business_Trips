@@ -45,7 +45,8 @@ public class UserService {
         return true;
     }
 
-    public List<User> getAllUsersByRoleName(Role role){
+    public List<User> getAllUsersByRoleName(String roleName){
+        Role role = Role.valueOf(roleName);
         return userRepository.findAllByRole(role);
     }
 }
