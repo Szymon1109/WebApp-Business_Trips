@@ -27,7 +27,7 @@ public class InitService {
     @PostConstruct
     public void init(){
 
-        User u1 = new User("Alicja", "Nowak", "anianow@wp.pl",
+        /*User u1 = new User("Alicja", "Nowak", "anianow@wp.pl",
                 "pwd123", "UTP", "Bydgoszcz, ul. Kaliskiego",
                 "1234567890");
 
@@ -54,9 +54,9 @@ public class InitService {
                 200, 50, 0, null, 0);
 
         Delegation d3 = new Delegation("Spotkanie z klientem", u3,
-                LocalDateTime.now().minusHours(5), LocalDateTime.now().plusHours(5), Transport.TRAIN, 58, null,
-                null, 80, 12, null, 0);
+                LocalDateTime.now().minusHours(5), LocalDateTime.now().plusHours(5),
+                Transport.TRAIN, 58, null, null, 80, 12, null, 0);
 
-        delegationRepository.saveAll(Arrays.asList(d1, d2, d3));
+        delegationRepository.saveAll(Arrays.asList(d1, d2, d3));*/
     }
 }
