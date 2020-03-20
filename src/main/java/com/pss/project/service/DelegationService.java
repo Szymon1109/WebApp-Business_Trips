@@ -42,11 +42,20 @@ public class DelegationService {
         return false;
     }
 
-    public void changeDelegation(Long delegationId, Delegation delegation){
+    public void changeDelegation(Long delegationId, Delegation del){
         Optional<Delegation> thisDelegation = delegationRepository.findById(delegationId);
 
-        thisDelegation.ifPresent(del -> {
+        thisDelegation.ifPresent(value -> {
+            Delegation delegation = new Delegation(
+                    value.getId(), del.getDescription(), value.getUser(), del.getDateTimeStart(),
+                    del.getDateTimeStop(), del.getTravelDietAmount(), del.getBreakfastNumber(),
+                    del.getDinnerNumber(), del.getSupperNumber(), del.getTransport(),
+                    del.getTicketPrice(), del.getAutoCapacity(), del.getDistance(),
+                    del.getAccommodationPrice(), del.getOtherTicketsPrice(),
+                    del.getOtherOutlayDesc(), del.getOtherOutlayPrice());
 
+            delegationRepository.delete(value);
+            delegationRepository.save(delegation);
         });
     }
 

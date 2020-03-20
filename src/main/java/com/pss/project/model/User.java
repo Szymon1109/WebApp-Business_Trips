@@ -16,7 +16,8 @@ import java.time.LocalDate;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "genA")
+    @SequenceGenerator(name = "genA", initialValue = 1)
     private Long id;
 
     @NotNull
@@ -31,10 +32,6 @@ public class User {
     @NotNull
     private String password;
 
-    private Boolean status = true;
-    private LocalDate registrationDate = LocalDate.now();
-    private Role role = Role.ROLE_USER;
-
     @NotNull
     private String companyName;
 
@@ -43,4 +40,19 @@ public class User {
 
     @NotNull
     private String companyNip;
+
+    private Boolean status = true;
+    private LocalDate registrationDate = LocalDate.now();
+    private Role role = Role.ROLE_USER;
+
+    public User(String name, String lastName, String email, String password,
+                String companyName, String companyAddress, String companyNip) {
+        this.name = name;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.companyName = companyName;
+        this.companyAddress = companyAddress;
+        this.companyNip = companyNip;
+    }
 }

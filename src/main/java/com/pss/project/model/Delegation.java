@@ -17,7 +17,8 @@ import java.time.LocalDateTime;
 public class Delegation {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "genB")
+    @SequenceGenerator(name = "genB", initialValue = 1)
     private Long id;
 
     private String description;
@@ -31,17 +32,10 @@ public class Delegation {
     @NotNull
     private LocalDateTime dateTimeStop;
 
-    @Column(columnDefinition = "integer default 30")
-    private Integer travelDietAmount;
-
-    @Column(columnDefinition = "integer default 0")
-    private Integer breakfastNumber;
-
-    @Column(columnDefinition = "integer default 0")
-    private Integer dinnerNumber;
-
-    @Column(columnDefinition = "integer default 0")
-    private Integer supperNumber;
+    private Integer travelDietAmount = 30;
+    private Integer breakfastNumber = 0;
+    private Integer dinnerNumber = 0;
+    private Integer supperNumber = 0;
 
     private Transport transport;
     private Integer ticketPrice;
@@ -51,4 +45,22 @@ public class Delegation {
     private Integer otherTicketsPrice;
     private String otherOutlayDesc;
     private Integer otherOutlayPrice;
+
+    public Delegation(String description, User user, LocalDateTime dateTimeStart,
+                      LocalDateTime dateTimeStop, Transport transport, Integer ticketPrice,
+                      AutoCapacity autoCapacity, Integer distance, Integer accommodationPrice,
+                      Integer otherTicketsPrice, String otherOutlayDesc, Integer otherOutlayPrice) {
+        this.description = description;
+        this.user = user;
+        this.dateTimeStart = dateTimeStart;
+        this.dateTimeStop = dateTimeStop;
+        this.transport = transport;
+        this.ticketPrice = ticketPrice;
+        this.autoCapacity = autoCapacity;
+        this.distance = distance;
+        this.accommodationPrice = accommodationPrice;
+        this.otherTicketsPrice = otherTicketsPrice;
+        this.otherOutlayDesc = otherOutlayDesc;
+        this.otherOutlayPrice = otherOutlayPrice;
+    }
 }
