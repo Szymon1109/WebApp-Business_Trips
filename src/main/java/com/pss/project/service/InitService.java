@@ -37,7 +37,7 @@ public class InitService {
 
         User u3 = new User(0L, "Julia", "Zielińska", "julia@ziel.pl",
                 "password", "Google", "U.S. Dolina Krzemowa",
-                "1122334455", true, LocalDate.now().minusDays(2), Role.ROLE_ADMIN);
+                "1122334455", true, LocalDate.now().minusDays(2), Role.ADMIN);
 
         u1 = userRepository.save(u1);
         u2 = userRepository.save(u2);

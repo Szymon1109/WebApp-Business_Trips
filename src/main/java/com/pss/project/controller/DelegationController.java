@@ -16,7 +16,7 @@ public class DelegationController {
 
     @PostMapping("/add")
     public void add(@RequestParam("id") Long id,
-                    @RequestParam("delegation") Delegation delegation){
+                    @RequestBody Delegation delegation){
         delegationService.addDelegation(id, delegation);
     }
 
@@ -29,7 +29,7 @@ public class DelegationController {
 
     @PutMapping("/change")
     public void change(@RequestParam("id") Long id,
-                                 @RequestParam("delegation") Delegation delegation){
+                       @RequestBody Delegation delegation){
         delegationService.changeDelegation(id, delegation);
     }
 

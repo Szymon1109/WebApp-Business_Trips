@@ -43,7 +43,7 @@ public class User {
 
     private Boolean status = true;
     private LocalDate registrationDate = LocalDate.now();
-    private Role role = Role.ROLE_USER;
+    private Role role = Role.USER;
 
     public User(String name, String lastName, String email, String password,
                 String companyName, String companyAddress, String companyNip) {
