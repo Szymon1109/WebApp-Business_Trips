@@ -79,19 +79,18 @@ public class DelegationControllerTests {
 
         mvc.perform(post("/api/delegation/add")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(jsonNewDelegation)
-                .param("id", "1"))
-                .andExpect(status().isOk());
+                .sessionAttr("delegation", jsonNewDelegation)
+                .param("id", "1")
+        ).andExpect(status().isOk());
     }
 
     @Test
     public void testDelegationServiceRemoveDelegation() throws Exception {
 
         mvc.perform(delete("/api/delegation/delete")
-                .contentType(MediaType.APPLICATION_JSON)
                 .param("userId", "4")
-                .param("delegationId", "1"))
-                .andExpect(status().isOk());
+                .param("delegationId", "1")
+        ).andExpect(status().isOk());
     }
 
     @Test
@@ -100,9 +99,9 @@ public class DelegationControllerTests {
 
         mvc.perform(put("/api/delegation/change")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(jsonNewDelegation)
-                .param("id", "4"))
-                .andExpect(status().isOk());
+                .sessionAttr("delegation", jsonNewDelegation)
+                .param("id", "4")
+        ).andExpect(status().isOk());
     }
 
     @Test
@@ -111,10 +110,10 @@ public class DelegationControllerTests {
 
         given(delegationService.getAllDelegations()).willReturn(all);
         mvc.perform(get("/api/delegation/all")
-                .accept(MediaType.APPLICATION_JSON))
+                .accept(MediaType.APPLICATION_JSON)
+        ).andExpect(status().isOk())
                 .andExpect(jsonPath("$").isArray())
-                .andExpect(jsonPath("$", hasSize(3)))
-                .andExpect(status().isOk());
+                .andExpect(jsonPath("$", hasSize(3)));
         //to correct!
     }
 
@@ -124,10 +123,10 @@ public class DelegationControllerTests {
 
         given(delegationService.getAllDelegationsOrderByDateTimeStartDesc()).willReturn(all);
         mvc.perform(get("/api/delegation/allInOrder")
-                .accept(MediaType.APPLICATION_JSON))
+                .accept(MediaType.APPLICATION_JSON)
+        ).andExpect(status().isOk())
                 .andExpect(jsonPath("$").isArray())
-                .andExpect(jsonPath("$", hasSize(3)))
-                .andExpect(status().isOk());
+                .andExpect(jsonPath("$", hasSize(3)));
         //to correct!
     }
 
@@ -137,12 +136,11 @@ public class DelegationControllerTests {
 
         given(delegationService.getAllDelByUserByDateTimeStartDesc(3L)).willReturn(all);
         mvc.perform(get("/api/delegation/allByUser")
-                .contentType(MediaType.APPLICATION_JSON)
                 .param("id", "3")
-                .accept(MediaType.APPLICATION_JSON))
+                .accept(MediaType.APPLICATION_JSON)
+        ).andExpect(status().isOk())
                 .andExpect(jsonPath("$").isArray())
-                .andExpect(jsonPath("$", hasSize(1)))
-                .andExpect(status().isOk());
+                .andExpect(jsonPath("$", hasSize(1)));
         //to correct!
     }
 }

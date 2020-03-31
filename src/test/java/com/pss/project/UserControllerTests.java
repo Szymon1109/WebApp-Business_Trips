@@ -66,17 +66,18 @@ public class UserControllerTests {
 
         mvc.perform(post("/api/user/add")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(jsonNewUser))
-                .andExpect(status().isOk());
+                .sessionAttr("user", jsonNewUser)
+        ).andExpect(status().isOk());
     }
 
     @Test
     public void testUserServiceGetAllUsers() throws Exception {
         List<User> all = Arrays.asList(user1, user2, user3);
-
         given(userService.getAllUsers()).willReturn(all);
+
         mvc.perform(get("/api/user/all")
-                .accept(MediaType.APPLICATION_JSON))
+                .accept(MediaType.APPLICATION_JSON)
+        ).andExpect(status().isOk())
                 .andExpect(jsonPath("$").isArray())
                 .andExpect(jsonPath("$", hasSize(3)))
                 .andExpect(jsonPath("$[0].name").value(user1.getName()))
@@ -87,8 +88,7 @@ public class UserControllerTests {
                 .andExpect(jsonPath("$[1].email").value(user2.getEmail()))
                 .andExpect(jsonPath("$[2].name").value(user3.getName()))
                 .andExpect(jsonPath("$[2].lastName").value(user3.getLastName()))
-                .andExpect(jsonPath("$[2].email").value(user3.getEmail()))
-                .andExpect(status().isOk());
+                .andExpect(jsonPath("$[2].email").value(user3.getEmail()));
         //to correct!
     }
 
@@ -96,19 +96,17 @@ public class UserControllerTests {
     public void testUserServiceChangePassword() throws Exception {
 
         mvc.perform(put("/api/user/change")
-                .contentType(MediaType.APPLICATION_JSON)
                 .param("id", "3")
-                .param("pwd", "zaq1@WSX"))
-                .andExpect(status().isOk());
+                .param("pwd", "zaq1@WSX")
+        ).andExpect(status().isOk());
     }
 
     @Test
     public void testUserServiceDeleteUserById() throws Exception {
 
         mvc.perform(delete("/api/user/delete")
-                .contentType(MediaType.APPLICATION_JSON)
-                .param("id", "3"))
-                .andExpect(status().isOk());
+                .param("id", "3")
+        ).andExpect(status().isOk());
     }
 
     @Test
@@ -117,14 +115,13 @@ public class UserControllerTests {
 
         given(userService.getAllUsersByRoleName("ADMIN")).willReturn(allAdmins);
         mvc.perform(get("/api/user/allByRole")
-                .contentType(MediaType.APPLICATION_JSON)
                 .param("name", "ADMIN")
-                .accept(MediaType.APPLICATION_JSON))
+                .accept(MediaType.APPLICATION_JSON)
+        ).andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)))
                 .andExpect(jsonPath("$[0].name").value(user3.getName()))
                 .andExpect(jsonPath("$[0].lastName").value(user3.getLastName()))
-                .andExpect(jsonPath("$[0].email").value(user3.getEmail()))
-                .andExpect(status().isOk());
+                .andExpect(jsonPath("$[0].email").value(user3.getEmail()));
         //to correct!
     }
 }
