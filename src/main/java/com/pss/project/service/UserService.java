@@ -41,8 +41,13 @@ public class UserService {
         List<Delegation> delegations = delegationRepository.findAllByUserId(userId);
         delegationRepository.deleteAll(delegations);
 
-        userRepository.deleteById(userId);
-        return true;
+        if(userRepository.findById(userId).isPresent()) {
+            userRepository.deleteById(userId);
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     public List<User> getAllUsersByRoleName(String roleName){

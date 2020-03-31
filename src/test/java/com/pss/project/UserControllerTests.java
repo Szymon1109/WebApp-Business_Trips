@@ -23,8 +23,7 @@ import java.util.List;
 import static org.hamcrest.Matchers.*;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(UserController.class)
@@ -43,15 +42,15 @@ public class UserControllerTests {
 
     @Before
     public void setup() {
-        user1 = new User(0L, "Alicja", "Nowak", "anianow@wp.pl",
+        user1 = new User(1L, "Alicja", "Nowak", "anianow@wp.pl",
                 "pwd123", "UTP", "Bydgoszcz, ul. Kaliskiego",
                 "1234567890", true, LocalDate.parse("2020-03-19"), Role.USER);
 
-        user2 = new User(0L, "Piotr", "Kowalski", "piotr.kowalski@gmail.com",
+        user2 = new User(2L, "Piotr", "Kowalski", "piotr.kowalski@gmail.com",
                 "qwerty", "VI LO", "Bydgoszcz, ul. Staszica",
                 "321123111", true, LocalDate.parse("2020-03-19"), Role.USER);
 
-        user3 = new User(0L, "Julia", "Zielińska", "julia@ziel.pl",
+        user3 = new User(3L, "Julia", "Zielińska", "julia@ziel.pl",
                 "password", "Google", "U.S. Dolina Krzemowa",
                 "1122334455", true, LocalDate.parse("2020-03-16"), Role.ADMIN);
 
@@ -80,16 +79,9 @@ public class UserControllerTests {
         ).andExpect(status().isOk())
                 .andExpect(jsonPath("$").isArray())
                 .andExpect(jsonPath("$", hasSize(3)))
-                .andExpect(jsonPath("$[0].name").value(user1.getName()))
-                .andExpect(jsonPath("$[0].lastName").value(user1.getLastName()))
-                .andExpect(jsonPath("$[0].email").value(user1.getEmail()))
-                .andExpect(jsonPath("$[1].name").value(user2.getName()))
-                .andExpect(jsonPath("$[1].lastName").value(user2.getLastName()))
-                .andExpect(jsonPath("$[1].email").value(user2.getEmail()))
-                .andExpect(jsonPath("$[2].name").value(user3.getName()))
-                .andExpect(jsonPath("$[2].lastName").value(user3.getLastName()))
-                .andExpect(jsonPath("$[2].email").value(user3.getEmail()));
-        //to correct!
+                .andExpect(jsonPath("$[0].id").value(user1.getId()))
+                .andExpect(jsonPath("$[1].id").value(user2.getId()))
+                .andExpect(jsonPath("$[2].id").value(user3.getId()));
     }
 
     @Test
@@ -105,8 +97,10 @@ public class UserControllerTests {
     public void testUserServiceDeleteUserById() throws Exception {
 
         mvc.perform(delete("/api/user/delete")
-                .param("id", "3")
-        ).andExpect(status().isOk());
+                .param("id", "5")
+                .accept(MediaType.APPLICATION_JSON)
+        ).andExpect(status().isOk())
+                .andExpect(jsonPath("$").value(false));
     }
 
     @Test
@@ -119,9 +113,6 @@ public class UserControllerTests {
                 .accept(MediaType.APPLICATION_JSON)
         ).andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)))
-                .andExpect(jsonPath("$[0].name").value(user3.getName()))
-                .andExpect(jsonPath("$[0].lastName").value(user3.getLastName()))
-                .andExpect(jsonPath("$[0].email").value(user3.getEmail()));
-        //to correct!
+                .andExpect(jsonPath("$[0].id").value(user3.getId()));
     }
 }
