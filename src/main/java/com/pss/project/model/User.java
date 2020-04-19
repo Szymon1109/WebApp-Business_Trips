@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
@@ -27,6 +28,7 @@ public class User {
     private String lastName;
 
     @NotNull
+    @Email
     private String email;
 
     @NotNull

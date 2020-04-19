@@ -3,6 +3,7 @@ package com.pss.project.controller;
 import com.pss.project.model.User;
 import com.pss.project.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,12 +12,16 @@ import java.util.List;
 @RequestMapping("/api/user")
 public class UserController {
 
-    @Autowired
     UserService userService;
 
+    @Autowired
+    UserController(UserService userService) {
+        this.userService = userService;
+    }
+
     @PostMapping("/add")
-    public void register(@ModelAttribute("user") User user){
-        userService.registerUser(user);
+    public ResponseEntity<User> register(@ModelAttribute("user") User user){
+        return userService.registerUser(user);
     }
 
     @GetMapping("/all")
@@ -26,14 +31,14 @@ public class UserController {
     }
 
     @PutMapping("/change")
-    public void changePassword(@RequestParam("id") Long id,
+    public ResponseEntity<User> changePassword(@RequestParam("id") Long id,
                                @RequestParam("pwd") String pwd){
-        userService.changePassword(id, pwd);
+        return userService.changePassword(id, pwd);
     }
 
     @DeleteMapping("/delete")
     @ResponseBody
-    public boolean deleteById(@RequestParam("id") Long id){
+    public ResponseEntity<Boolean> deleteById(@RequestParam("id") Long id){
         return userService.deleteUserById(id);
     }
 

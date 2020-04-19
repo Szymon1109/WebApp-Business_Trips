@@ -6,6 +6,8 @@ import com.pss.project.repository.DelegationRepository;
 import com.pss.project.repository.UserRepository;
 import com.pss.project.util.Role;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,39 +16,54 @@ import java.util.Optional;
 @Service
 public class UserService {
 
-    @Autowired
     UserRepository userRepository;
-
-    @Autowired
     DelegationRepository delegationRepository;
 
-    public void registerUser(User user){
-        userRepository.save(user);
+    @Autowired
+    UserService(UserRepository userRepository, DelegationRepository delegationRepository){
+        this.userRepository = userRepository;
+        this.delegationRepository = delegationRepository;
+    }
+
+    public ResponseEntity<User> registerUser(User user){
+        if(userRepository.findByEmail(user.getEmail()).isPresent()) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        else {
+            user = userRepository.save(user);
+            return new ResponseEntity<>(user, HttpStatus.OK);
+        }
     }
 
     public List<User> getAllUsers(){
         return userRepository.findAll();
     }
 
-    public void changePassword(Long userId, String newPassword){
+    public ResponseEntity<User> changePassword(Long userId, String newPassword){
         Optional<User> user = userRepository.findById(userId);
 
-        user.ifPresent(thisUser -> {
-            thisUser.setPassword(newPassword);
-            userRepository.save(thisUser);
-        });
+        if(user.isPresent()) {
+            User userSave = user.get();
+            userSave.setPassword(newPassword);
+            userSave = userRepository.save(userSave);
+
+            return new ResponseEntity<>(userSave, HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
-    public boolean deleteUserById(Long userId){
+    public ResponseEntity<Boolean> deleteUserById(Long userId){
         List<Delegation> delegations = delegationRepository.findAllByUserId(userId);
         delegationRepository.deleteAll(delegations);
 
         if(userRepository.findById(userId).isPresent()) {
             userRepository.deleteById(userId);
-            return true;
+            return new ResponseEntity<>(true, HttpStatus.OK);
         }
         else {
-            return false;
+            return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
         }
     }
 

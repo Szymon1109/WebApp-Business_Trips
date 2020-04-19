@@ -3,6 +3,7 @@ package com.pss.project.controller;
 import com.pss.project.model.Delegation;
 import com.pss.project.service.DelegationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,26 +12,30 @@ import java.util.List;
 @RequestMapping("/api/delegation")
 public class DelegationController {
 
-    @Autowired
     DelegationService delegationService;
 
+    @Autowired
+    DelegationController(DelegationService delegationService) {
+        this.delegationService = delegationService;
+    }
+
     @PostMapping("/add")
-    public void add(@RequestParam("id") Long id,
-                    @ModelAttribute("delegation") Delegation delegation){
-        delegationService.addDelegation(id, delegation);
+    public ResponseEntity<Delegation> add(@RequestParam("id") Long id,
+                                          @ModelAttribute("delegation") Delegation delegation){
+        return delegationService.addDelegation(id, delegation);
     }
 
     @DeleteMapping("/delete")
     @ResponseBody
-    public boolean remove(@RequestParam("userId") Long userId,
-                          @RequestParam("delegationId") Long delegationId){
+    public ResponseEntity<Boolean> remove(@RequestParam("userId") Long userId,
+                                          @RequestParam("delegationId") Long delegationId){
         return delegationService.removeDelegation(userId, delegationId);
     }
 
     @PutMapping("/change")
-    public void change(@RequestParam("id") Long id,
-                       @ModelAttribute("delegation") Delegation delegation){
-        delegationService.changeDelegation(id, delegation);
+    public ResponseEntity<Delegation> change(@RequestParam("id") Long id,
+                                             @ModelAttribute("delegation") Delegation delegation){
+        return delegationService.changeDelegation(id, delegation);
     }
 
     @GetMapping("/all")
