@@ -15,11 +15,11 @@ import java.util.Optional;
 @Service
 public class DelegationService {
 
-    UserRepository userRepository;
-    DelegationRepository delegationRepository;
+    private UserRepository userRepository;
+    private DelegationRepository delegationRepository;
 
     @Autowired
-    DelegationService(UserRepository userRepository, DelegationRepository delegationRepository) {
+    public DelegationService(UserRepository userRepository, DelegationRepository delegationRepository) {
         this.userRepository = userRepository;
         this.delegationRepository = delegationRepository;
     }

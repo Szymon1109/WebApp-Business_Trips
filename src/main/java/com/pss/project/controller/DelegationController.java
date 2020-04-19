@@ -12,10 +12,10 @@ import java.util.List;
 @RequestMapping("/api/delegation")
 public class DelegationController {
 
-    DelegationService delegationService;
+    private DelegationService delegationService;
 
     @Autowired
-    DelegationController(DelegationService delegationService) {
+    public DelegationController(DelegationService delegationService) {
         this.delegationService = delegationService;
     }
 

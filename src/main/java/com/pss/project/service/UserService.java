@@ -8,6 +8,7 @@ import com.pss.project.util.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,13 +17,17 @@ import java.util.Optional;
 @Service
 public class UserService {
 
-    UserRepository userRepository;
-    DelegationRepository delegationRepository;
+    private UserRepository userRepository;
+    private DelegationRepository delegationRepository;
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
-    UserService(UserRepository userRepository, DelegationRepository delegationRepository){
+    public UserService(UserRepository userRepository,
+                       DelegationRepository delegationRepository,
+                       PasswordEncoder passwordEncoder){
         this.userRepository = userRepository;
         this.delegationRepository = delegationRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public ResponseEntity<User> registerUser(User user){
@@ -30,6 +35,7 @@ public class UserService {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         else {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
             user = userRepository.save(user);
             return new ResponseEntity<>(user, HttpStatus.OK);
         }
@@ -44,7 +50,7 @@ public class UserService {
 
         if(user.isPresent()) {
             User userSave = user.get();
-            userSave.setPassword(newPassword);
+            userSave.setPassword(passwordEncoder.encode(newPassword));
             userSave = userRepository.save(userSave);
 
             return new ResponseEntity<>(userSave, HttpStatus.OK);

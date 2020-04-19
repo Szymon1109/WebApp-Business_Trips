@@ -7,20 +7,22 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
+@Entity(name = "delegations")
 public class Delegation {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "genB")
-    @SequenceGenerator(name = "genB", initialValue = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Size(max = 30)
     private String description;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -28,22 +30,29 @@ public class Delegation {
 
     @NotNull
     private LocalDateTime dateTimeStart;
-
     @NotNull
     private LocalDateTime dateTimeStop;
 
+    @Min(0)
     private Integer travelDietAmount = 30;
+    @Min(0)
     private Integer breakfastNumber = 0;
+    @Min(0)
     private Integer dinnerNumber = 0;
+    @Min(0)
     private Integer supperNumber = 0;
-
     private Transport transport;
+    @Min(0)
     private Integer ticketPrice;
     private AutoCapacity autoCapacity;
+    @Min(0)
     private Integer distance;
+    @Min(0)
     private Integer accommodationPrice;
+    @Min(0)
     private Integer otherTicketsPrice;
     private String otherOutlayDesc;
+    @Min(0)
     private Integer otherOutlayPrice;
 
     public Delegation(String description, User user, LocalDateTime dateTimeStart,

@@ -8,6 +8,7 @@ import com.pss.project.util.AutoCapacity;
 import com.pss.project.util.Role;
 import com.pss.project.util.Transport;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -18,25 +19,31 @@ import java.util.Arrays;
 @Service
 public class InitService {
 
-    @Autowired
-    UserRepository userRepository;
+    /*private UserRepository userRepository;
+    private DelegationRepository delegationRepository;
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
-    DelegationRepository delegationRepository;
+    public InitService(UserRepository userRepository,
+                       DelegationRepository delegationRepository,
+                       PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
+        this.delegationRepository = delegationRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @PostConstruct
     public void init(){
-
-        /*User u1 = new User("Alicja", "Nowak", "anianow@wp.pl",
-                "pwd123", "UTP", "Bydgoszcz, ul. Kaliskiego",
+        User u1 = new User("Alicja", "Nowak", "anianow@wp.pl",
+                passwordEncoder.encode("Pa$$word1"), "UTP", "Bydgoszcz, ul. Kaliskiego",
                 "1234567890");
 
         User u2 = new User("Piotr", "Kowalski", "piotr.kowalski@gmail.com",
-                "qwerty", "VI LO", "Bydgoszcz, ul. Staszica",
-                "321123111");
+                passwordEncoder.encode("Pa$$word1"), "VI LO", "Bydgoszcz, ul. Staszica",
+                "3211231116");
 
         User u3 = new User(0L, "Julia", "Zielińska", "julia@ziel.pl",
-                "password", "Google", "U.S. Dolina Krzemowa",
+                passwordEncoder.encode("Pa$$word1"), "Google", "U.S. Dolina Krzemowa",
                 "1122334455", true, LocalDate.now().minusDays(2), Role.ADMIN);
 
         u1 = userRepository.save(u1);
@@ -57,6 +64,6 @@ public class InitService {
                 LocalDateTime.now().minusHours(5), LocalDateTime.now().plusHours(5),
                 Transport.TRAIN, 58, null, null, 80, 12, null, 0);
 
-        delegationRepository.saveAll(Arrays.asList(d1, d2, d3));*/
-    }
+        delegationRepository.saveAll(Arrays.asList(d1, d2, d3));
+    }*/
 }
