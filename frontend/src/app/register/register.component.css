@@ -15,8 +15,8 @@ html,body{
 }
 
 .card{
-  width: 350px;
-  height: 330px;
+  width: 600px;
+  height: 470px;
   margin-top: auto;
   margin-bottom: auto;
   background-color: rgba(0,0,0,0.5) !important;
@@ -24,32 +24,24 @@ html,body{
 
 .card-header h3{
   color: white;
+  text-align: center;
 }
 
-.social_icon{
-  position: absolute;
-  right: 20px;
-  top: -30px;
+.form-space {
+  margin-left: 25px;
 }
 
-.social_icon span{
-  font-size: 60px;
-  margin-left: 10px;
-  color: #A9D0F5;
+.form-address {
+  width:515px;
 }
 
-.social_icon span:hover{
-  color: #FFFFFF;
-  cursor: pointer;
-}
-
-.login_btn{
+.reg_btn{
   color: black;
   background-color: #81BEF7;
   width: 150px;
 }
 
-.login_btn:hover{
+.reg_btn:hover{
   color: white;
   background-color: #0539BC;
 }

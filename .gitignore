@@ -4,6 +4,7 @@ target/
 mvnw
 mvnw.cmd
 PSS-project.iml
+package-lock.json
 frontend/e2e
 frontend/node_modules
 frontend/.angular-cli.json
