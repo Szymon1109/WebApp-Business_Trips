@@ -27,21 +27,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsServiceImpl);
+    @Override
+    public void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsServiceImpl)
+                .passwordEncoder(getPasswordEncoder());
     }
 
+    @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/api/user/all").hasRole("ADMIN")
-                .and().authorizeRequests().antMatchers("/api/user/allByRole").hasRole("ADMIN")
-                .and().authorizeRequests().antMatchers("/api/delegation/all").hasRole("ADMIN")
-                .and().authorizeRequests().antMatchers("/api/delegation/allInOrder").hasRole("ADMIN")
+        http.csrf().disable()
+                .authorizeRequests().antMatchers("/api/user/all**").hasRole("ADMIN")
+                .and().authorizeRequests().antMatchers("/api/delegation/all**").hasRole("ADMIN")
                 .and().authorizeRequests().antMatchers("/api/user/**").authenticated()
                 .and().authorizeRequests().antMatchers("/api/delegation/**").authenticated()
-                .and().authorizeRequests().antMatchers("/menu").authenticated()
-                .and().authorizeRequests().antMatchers("/register").permitAll()
-                .and().formLogin().loginPage("/login").permitAll()
-                .and().logout().logoutSuccessUrl("/login");
+                .and().formLogin().permitAll();
     }
 }

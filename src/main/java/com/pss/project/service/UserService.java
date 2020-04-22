@@ -1,10 +1,11 @@
 package com.pss.project.service;
 
 import com.pss.project.model.Delegation;
+import com.pss.project.model.Role;
 import com.pss.project.model.User;
 import com.pss.project.repository.DelegationRepository;
+import com.pss.project.repository.RoleRepository;
 import com.pss.project.repository.UserRepository;
-import com.pss.project.util.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,14 +20,17 @@ public class UserService {
 
     private UserRepository userRepository;
     private DelegationRepository delegationRepository;
+    private RoleRepository roleRepository;
     private PasswordEncoder passwordEncoder;
 
     @Autowired
     public UserService(UserRepository userRepository,
                        DelegationRepository delegationRepository,
+                       RoleRepository roleRepository,
                        PasswordEncoder passwordEncoder){
         this.userRepository = userRepository;
         this.delegationRepository = delegationRepository;
+        this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -74,7 +78,7 @@ public class UserService {
     }
 
     public List<User> getAllUsersByRoleName(String roleName){
-        Role role = Role.valueOf(roleName);
-        return userRepository.findAllByRole(role);
+        Role role = roleRepository.findByRoleName(roleName);
+        return userRepository.findAllByRolesContains(role);
     }
 }

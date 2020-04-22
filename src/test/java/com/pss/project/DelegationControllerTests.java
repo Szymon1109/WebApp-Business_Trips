@@ -3,10 +3,10 @@ package com.pss.project;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pss.project.controller.DelegationController;
 import com.pss.project.model.Delegation;
+import com.pss.project.model.Role;
 import com.pss.project.model.User;
 import com.pss.project.service.DelegationService;
 import com.pss.project.util.AutoCapacity;
-import com.pss.project.util.Role;
 import com.pss.project.util.Transport;
 import org.junit.Before;
 import org.junit.Test;
@@ -21,7 +21,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static org.hamcrest.Matchers.*;
 import static org.mockito.BDDMockito.given;
@@ -43,16 +45,23 @@ public class DelegationControllerTests {
     private ObjectMapper mapper;
 
     private Delegation delegation1, delegation2, delegation3, newDelegation;
+    private Set<Role> userRole = new HashSet<>(), adminRole = new HashSet<>();
 
     @Before
     public void setup() {
+        Role r1 = new Role(1L, "USER");
+        Role r2 = new Role(2L, "ADMIN");
+
+        userRole.add(r1);
+        adminRole.add(r2);
+
         User user1 = new User(1L, "Alicja", "Nowak", "anianow@wp.pl",
                 "pwd123", "UTP", "Bydgoszcz, ul. Kaliskiego",
-                "1234567890", true, LocalDate.parse("2020-03-19"), Role.USER);
+                "1234567890", true, LocalDate.parse("2020-03-19"), userRole);
 
         User user3 = new User(3L, "Julia", "Zielińska", "julia@ziel.pl",
                 "password", "Google", "U.S. Dolina Krzemowa",
-                "1122334455", true, LocalDate.parse("2020-03-16"), Role.ADMIN);
+                "1122334455", true, LocalDate.parse("2020-03-16"), adminRole);
 
         delegation1 = new Delegation(1L, "Szkolenie w Warszawie", user1,
                 LocalDateTime.parse("2020-03-20T05:01:00.751660"), LocalDateTime.parse("2020-03-21T15:01:00.752677"),

@@ -5,9 +5,6 @@ public enum AutoCapacity {
     MEDIUM (1500),
     HIGH   (2000);
 
-    private final int capacity;
-
     AutoCapacity(int capacity){
-        this.capacity = capacity;
     }
 }

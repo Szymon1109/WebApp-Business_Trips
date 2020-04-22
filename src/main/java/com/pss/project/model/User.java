@@ -1,6 +1,5 @@
 package com.pss.project.model;
 
-import com.pss.project.util.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,8 +11,8 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Data
 @AllArgsConstructor
@@ -62,10 +61,12 @@ public class User implements UserDetails {
 
     private Boolean status = true;
     private LocalDate registrationDate = LocalDate.now();
-    private Role role = Role.USER;
 
-    public User(String name, String lastName, String email, String password,
-                String companyName, String companyAddress, String companyNip) {
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<Role> roles;
+
+    public User(String name, String lastName, String email, String password, String companyName,
+                String companyAddress, String companyNip, Set<Role> roles) {
         this.name = name;
         this.lastName = lastName;
         this.email = email;
@@ -73,14 +74,14 @@ public class User implements UserDetails {
         this.companyName = companyName;
         this.companyAddress = companyAddress;
         this.companyNip = companyNip;
+        this.roles = roles;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        Set<SimpleGrantedAuthority> authority = new HashSet<>();
-        authority.add(new SimpleGrantedAuthority(role.name()));
-
-        return authority;
+        return getRoles().stream()
+                .map(role -> new SimpleGrantedAuthority("ROLE_" + role.getRoleName()))
+                .collect(Collectors.toList());
     }
 
     @Override
