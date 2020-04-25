@@ -24,6 +24,6 @@ export class UserService {
   }
 
   public save(user: User) {
-    return this.http.post<User>(this.userUrl + '/add', user, this.httpOptions);
+    return this.http.post<User>(this.userUrl + '/add', user);
   }
 }

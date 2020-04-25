@@ -15,19 +15,21 @@
         </div>
       </div>
       <div class="card-body">
+        <div class="text-center links"> {{ message }} </div>
+        <label></label>
         <form>
           <div class="form-group text-center">
             <label>
-              <input type="text" class="form-control" placeholder="email">
+              <input type="text" class="form-control" placeholder="email" [(ngModel)]="email" name="email">
             </label>
           </div>
           <div class="form-group text-center">
             <label>
-              <input type="password" class="form-control" placeholder="password">
+              <input type="password" class="form-control" placeholder="password" [(ngModel)]="password" name="password">
             </label>
           </div>
           <div class="form-group text-center">
-            <input type="submit" value="Login" class="btn login_btn">
+            <input type="submit" value="Login" class="btn login_btn" (click)=checkLogin()>
           </div>
         </form>
       </div>

@@ -10,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/user")
+@CrossOrigin
 public class UserController {
 
     private UserService userService;
@@ -19,8 +20,13 @@ public class UserController {
         this.userService = userService;
     }
 
+    @GetMapping("/auth")
+    public ResponseEntity<Void> authentication() {
+        return userService.login();
+    }
+
     @PostMapping("/add")
-    public ResponseEntity<User> register(@ModelAttribute("user") User user){
+    public ResponseEntity<User> register(@RequestBody User user){
         return userService.registerUser(user);
     }
 

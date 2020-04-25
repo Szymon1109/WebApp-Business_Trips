@@ -36,10 +36,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
-                .authorizeRequests().antMatchers("/api/user/all**").hasRole("ADMIN")
+                .cors()
+                .and().authorizeRequests().antMatchers("/api/user/all**").hasRole("ADMIN")
                 .and().authorizeRequests().antMatchers("/api/delegation/all**").hasRole("ADMIN")
+                .and().authorizeRequests().antMatchers("/api/user/add").permitAll()
                 .and().authorizeRequests().antMatchers("/api/user/**").authenticated()
                 .and().authorizeRequests().antMatchers("/api/delegation/**").authenticated()
-                .and().formLogin().permitAll();
+                .and().formLogin().permitAll()
+                .and().logout().permitAll()
+                .and().httpBasic();
     }
 }

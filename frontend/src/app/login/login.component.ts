@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {ActivatedRoute, Router} from "@angular/router";
+import {AuthService} from "../auth-service/auth.service";
 
 @Component({
   selector: 'app-login',
@@ -7,9 +9,35 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+  message: string;
+  welcomeText: string;
+  errorText: string;
+
+  email: string;
+  password: string;
+
+  constructor(private route: ActivatedRoute,
+              private router: Router,
+              private authService: AuthService) {
+
+    this.welcomeText = "Type your data to sign in...";
+    this.errorText = "Given data are not correct!";
+    this.message = this.welcomeText;
+  }
 
   ngOnInit() {
   }
 
+  checkLogin() {
+    if(this.email != null && this.email != "" && this.password != null && this.password != "") {
+      this.authService.authenticationService(this.email, this.password).subscribe(() => {
+        this.router.navigate(['/home']);
+      }, () => {
+        this.message = this.errorText;
+      })
+    }
+    else {
+      this.message = this.welcomeText;
+    }
+  }
 }

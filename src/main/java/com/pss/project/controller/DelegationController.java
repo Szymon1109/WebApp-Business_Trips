@@ -10,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/delegation")
+@CrossOrigin
 public class DelegationController {
 
     private DelegationService delegationService;

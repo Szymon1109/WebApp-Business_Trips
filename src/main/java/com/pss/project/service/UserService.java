@@ -12,8 +12,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class UserService {
@@ -34,13 +36,28 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public ResponseEntity<User> registerUser(User user){
+    public ResponseEntity<Void> login() {
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    public ResponseEntity<User> registerUser(User user) {
         if(userRepository.findByEmail(user.getEmail()).isPresent()) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
         }
         else {
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
-            user = userRepository.save(user);
+            try {
+                user.setPassword(passwordEncoder.encode(user.getPassword()));
+
+                Role role = roleRepository.findByRoleName("USER");
+                Set<Role> roles = new HashSet<>();
+                roles.add(role);
+                user.setRoles(roles);
+
+                user = userRepository.save(user);
+            }
+            catch(Exception e){
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
             return new ResponseEntity<>(user, HttpStatus.OK);
         }
     }
