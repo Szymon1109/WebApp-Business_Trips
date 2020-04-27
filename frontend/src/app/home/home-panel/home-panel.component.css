@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css?family=Numans');
+@import url('https://fonts.googleapis.com/css?family=Handlee');
+@import url('//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+
+.container{
+  color: white;
+  height: 100vh;
+  align-content: center;
+  font-family: 'Numans', sans-serif;
+}
+
+.card {
+  width: 700px;
+  height: 430px;
+  margin-top: auto;
+  margin-bottom: auto;
+  background-color: rgba(0, 0, 0, 0.5) !important;
+}
+
+.icon {
+  font-size: 100px;
+  margin-left: 50px;
+  margin-top: 10px;
+  color: white;
+}
+
+.icon2 {
+  font-size: 80px;
+  margin-left: 55px;
+  margin-top: 0px;
+  color: white;
+}
+
+.size-big {
+  font-size: 30px;
+}
+
+.size-medium {
+  font-size: 20px;
+}
+
+.size-small {
+  font-size: 15px;
+}
+
+.space-col {
+  width: 170px;
+}
+
+.space-row {
+  height: 50px;
+}
+
+.space-row2 {
+  height: 40px;
+}

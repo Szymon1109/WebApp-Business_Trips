@@ -8,54 +8,44 @@
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <a class="nav-link tab" href="home"><span> Home </span></a>
+          <a class="nav-link tab" routerLink="/home"><span> Home </span></a>
         </li>
         <li class="nav-item dropdown active">
-          <a class="nav-link dropdown-toggle tab" href="home" id="navbarDropdownDataLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <a class="nav-link dropdown-toggle tab" id="navbarDropdownDataLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <span> Profile </span>
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item tab" href="home"><span> Edit data </span></a>
-            <a class="dropdown-item tab" href="home"><span> Change password </span></a>
+            <a class="dropdown-item tab" routerLink="/home/edit"><span> Edit data </span></a>
+            <a class="dropdown-item tab"><span> Change password </span></a>
           </div>
         </li>
         <li class="nav-item dropdown active">
-          <a class="nav-link dropdown-toggle tab" href="home" id="navbarDropdownDelegationsLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <a class="nav-link dropdown-toggle tab" id="navbarDropdownDelegationsLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <span> Delegations </span>
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item tab" href="home"><span> Your delegations </span></a>
-            <a class="dropdown-item tab" href="home"><span> Add delegation </span></a>
-            <a class="dropdown-item tab" href="home"><span> Edit delegation </span></a>
-            <a class="dropdown-item tab" href="home"><span> Remove delegation </span></a>
+            <a class="dropdown-item tab" routerLink="/home"><span> Your delegations </span></a>
+            <a class="dropdown-item tab" routerLink="/home"><span> Add delegation </span></a>
+            <a class="dropdown-item tab" routerLink="/home"><span> Edit delegation </span></a>
+            <a class="dropdown-item tab" routerLink="/home"><span> Remove delegation </span></a>
           </div>
         </li>
       </ul>
       <a class="navbar-brand navbar-center title"> Business Trips Management System </a>
       <ul class="navbar-nav ml-auto">
         <li class="ml-auto nav-item active">
-          <a class="nav-link tab" href="login"><span> Logout </span></a>
+          <a class="nav-link tab" routerLink="/login"><span> Logout </span></a>
         </li>
       </ul>
     </div>
   </nav>
-<!--
 
-  <div class="container">
-    <div class="d-flex justify-content-center h-100">
-      <div class="card">
-        Data to display
-      </div>
-    </div>
-  </div>
--->
-
-  <router-outlet> </router-outlet>
-
-    <footer class="page-footer font-small blue footer-custom navbar-fixed-bottom">
+  <footer class="page-footer font-small blue footer-custom navbar-fixed-bottom">
     <div class="footer-copyright text-center py-3">© 2020 Copyright:
       Szymon Betlewski
     </div>
   </footer>
+
+  <router-outlet> </router-outlet>
 </body>
 </html>

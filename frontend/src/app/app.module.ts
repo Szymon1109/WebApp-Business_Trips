@@ -10,13 +10,17 @@ import {FormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 import {AuthService} from "./auth-service/auth.service";
 import {UserService} from "./user-service/user.service";
+import { HomePanelComponent } from './home/home-panel/home-panel.component';
+import { EditProfilePanelComponent } from './home/edit-profile-panel/edit-profile-panel.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    HomeComponent
+    HomeComponent,
+    HomePanelComponent,
+    EditProfilePanelComponent
   ],
   imports: [
     BrowserModule,
