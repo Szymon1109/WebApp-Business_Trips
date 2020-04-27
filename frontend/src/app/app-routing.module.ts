@@ -6,6 +6,7 @@ import {RegisterComponent} from "./register/register.component";
 import {HomeComponent} from "./home/home.component";
 import {HomePanelComponent} from "./home/home-panel/home-panel.component";
 import {EditProfilePanelComponent} from "./home/edit-profile-panel/edit-profile-panel.component";
+import {ChangePwdPanelComponent} from "./home/change-pwd-panel/change-pwd-panel.component";
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -21,6 +22,10 @@ const routes: Routes = [
       {
         path: 'edit',
         component: EditProfilePanelComponent
+      },
+      {
+        path: 'password',
+        component: ChangePwdPanelComponent
       }
     ]
   },

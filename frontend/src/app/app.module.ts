@@ -12,6 +12,7 @@ import {AuthService} from "./auth-service/auth.service";
 import {UserService} from "./user-service/user.service";
 import { HomePanelComponent } from './home/home-panel/home-panel.component';
 import { EditProfilePanelComponent } from './home/edit-profile-panel/edit-profile-panel.component';
+import { ChangePwdPanelComponent } from './home/change-pwd-panel/change-pwd-panel.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { EditProfilePanelComponent } from './home/edit-profile-panel/edit-profil
     RegisterComponent,
     HomeComponent,
     HomePanelComponent,
-    EditProfilePanelComponent
+    EditProfilePanelComponent,
+    ChangePwdPanelComponent
   ],
   imports: [
     BrowserModule,

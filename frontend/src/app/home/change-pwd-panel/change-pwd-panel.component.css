@@ -1,0 +1,10 @@
+@import url("../edit-profile-panel/edit-profile-panel.component.css");
+
+.card {
+  width: 490px;
+  height: 320px;
+}
+
+.row-space {
+  margin-left: 0;
+}

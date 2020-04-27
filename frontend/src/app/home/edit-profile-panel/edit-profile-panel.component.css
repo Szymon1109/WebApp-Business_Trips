@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css?family=Numans');
-@import url('https://fonts.googleapis.com/css?family=Handlee');
 @import url('//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
 
 .container{
@@ -35,7 +34,7 @@
 
 .row-space {
   margin-top: 20px;
-  margin-left: 45px;
+  margin-left: 50px;
 }
 
 .reg_btn{
