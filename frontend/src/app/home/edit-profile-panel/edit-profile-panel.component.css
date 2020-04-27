@@ -10,9 +10,41 @@
 }
 
 .card {
-  width: 100vw;
-  height: 500px;
+  width: 610px;
+  height: 450px;
   margin-top: auto;
   margin-bottom: auto;
   background-color: rgba(0, 0, 0, 0.5) !important;
+}
+
+.message {
+  margin-top: 30px;
+}
+
+.form-space {
+  margin-left: 50px;
+}
+
+.form-space2 {
+  margin-left: 25px;
+}
+
+.form-address {
+  width:515px;
+}
+
+.row-space {
+  margin-top: 20px;
+  margin-left: 45px;
+}
+
+.reg_btn{
+  color: black;
+  background-color: white;
+  width: 150px;
+}
+
+.reg_btn:hover{
+  color: white;
+  background-color: grey;
 }
