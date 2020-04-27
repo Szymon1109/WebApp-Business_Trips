@@ -7,8 +7,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
 import {FormsModule} from "@angular/forms";
-import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
-import {HttpInterceptorService} from "./auth-service/http-interceptor.service";
+import {HttpClientModule} from "@angular/common/http";
 import {AuthService} from "./auth-service/auth.service";
 import {UserService} from "./user-service/user.service";
 
@@ -19,19 +18,13 @@ import {UserService} from "./user-service/user.service";
     RegisterComponent,
     HomeComponent
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        HttpClientModule,
-        FormsModule
-    ],
-  providers: [AuthService, UserService,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: HttpInterceptorService,
-      multi: true
-    }
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule
   ],
+  providers: [AuthService, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

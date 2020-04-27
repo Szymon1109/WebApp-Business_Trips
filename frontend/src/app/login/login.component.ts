@@ -33,11 +33,13 @@ export class LoginComponent implements OnInit {
       this.authService.authenticationService(this.email, this.password).subscribe(() => {
         this.router.navigate(['/home']);
       }, () => {
-        this.message = this.errorText;
+        this.message = '.';
+        setTimeout(() => this.message = this.errorText, 30);
       })
     }
     else {
-      this.message = this.welcomeText;
+      this.message = '.';
+      setTimeout(() => this.message = this.welcomeText, 30);
     }
   }
 }

@@ -53,15 +53,18 @@ export class RegisterComponent implements OnInit {
         this.router.navigate(['/login']);
       },(error) => {
         if(error.status == 406) {
-          this.message = this.emailText;
+          this.message = '.';
+          setTimeout(() => this.message = this.emailText, 30);
         }
         else if(error.status == 400) {
-          this.message = this.dataText;
+          this.message = '.';
+          setTimeout(() => this.message = this.dataText, 30);
         }
       })
     }
     else {
-      this.message = this.welcomeText;
+      this.message = '.';
+      setTimeout(() => this.message = this.welcomeText, 30);
     }
   }
 }
