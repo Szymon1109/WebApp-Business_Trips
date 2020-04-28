@@ -5,9 +5,10 @@ import {LoginComponent} from "./login/login.component";
 import {RegisterComponent} from "./register/register.component";
 import {HomeComponent} from "./home/home.component";
 import {HomePanelComponent} from "./home/home-panel/home-panel.component";
-import {EditProfilePanelComponent} from "./home/edit-profile-panel/edit-profile-panel.component";
-import {ChangePwdPanelComponent} from "./home/change-pwd-panel/change-pwd-panel.component";
-import {DelegationPanelComponent} from "./home/delegation-panel/delegation-panel.component";
+import {EditProfilePanelComponent} from "./home/profile-tab/edit-profile-panel/edit-profile-panel.component";
+import {ChangePwdPanelComponent} from "./home/profile-tab/change-pwd-panel/change-pwd-panel.component";
+import {DelegationPanelComponent} from "./home/delegation-tab/delegation-panel/delegation-panel.component";
+import {AddPanelComponent} from "./home/delegation-tab/add-panel/add-panel.component";
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -21,16 +22,20 @@ const routes: Routes = [
         component: HomePanelComponent
       },
       {
-        path: 'edit',
+        path: 'profile/edit',
         component: EditProfilePanelComponent
       },
       {
-        path: 'password',
+        path: 'profile/password',
         component: ChangePwdPanelComponent
       },
       {
-        path: 'delegation',
+        path: 'delegation/list',
         component: DelegationPanelComponent
+      },
+      {
+        path: 'delegation/add',
+        component: AddPanelComponent
       }
     ]
   },

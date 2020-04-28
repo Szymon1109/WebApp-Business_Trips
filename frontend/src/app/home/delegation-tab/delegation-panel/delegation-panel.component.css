@@ -1,4 +1,4 @@
-@import url("../edit-profile-panel/edit-profile-panel.component.css");
+@import url("../../profile-tab/edit-profile-panel/edit-profile-panel.component.css");
 
 .card {
   background-color: white !important;

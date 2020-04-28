@@ -1,0 +1,35 @@
+@import url("../../profile-tab/edit-profile-panel/edit-profile-panel.component.css");
+
+.card {
+  width: 710px;
+  height: 550px;
+}
+
+textarea {
+  resize: none;
+}
+
+.form-desc {
+  width: 625px;
+}
+
+.form-date {
+  width: 300px;
+}
+
+.form-val {
+  width: 137px;
+}
+
+.form-val2 {
+  width: 170px;
+}
+
+.form-space3 {
+  margin-left: 80px;
+}
+
+.reg_btn{
+  width: 100px;
+  margin-left: 310px;
+}
