@@ -13,6 +13,7 @@ import {UserService} from "./user-service/user.service";
 import { HomePanelComponent } from './home/home-panel/home-panel.component';
 import { EditProfilePanelComponent } from './home/edit-profile-panel/edit-profile-panel.component';
 import { ChangePwdPanelComponent } from './home/change-pwd-panel/change-pwd-panel.component';
+import { DelegationPanelComponent } from './home/delegation-panel/delegation-panel.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { ChangePwdPanelComponent } from './home/change-pwd-panel/change-pwd-pane
     HomeComponent,
     HomePanelComponent,
     EditProfilePanelComponent,
-    ChangePwdPanelComponent
+    ChangePwdPanelComponent,
+    DelegationPanelComponent
   ],
   imports: [
     BrowserModule,

@@ -1,10 +1,18 @@
 @import url("../edit-profile-panel/edit-profile-panel.component.css");
 
 .card {
-  width: 490px;
-  height: 320px;
+  width: 380px;
+  height: 370px;
+}
+
+.form-space {
+  margin-left: 80px;
 }
 
 .row-space {
-  margin-left: 0;
+  margin-left: 80px;
+}
+
+.reg_btn {
+  margin-left: 130px;
 }

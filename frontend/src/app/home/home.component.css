@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Numans');
-@import url('https://fonts.googleapis.com/css?family=Handlee');
+@import url('https://fonts.googleapis.com/css?family=Raleway');
 @import url('//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
 
 html,body{
@@ -12,9 +12,8 @@ html,body{
 }
 
 .title {
-  font-family: 'Handlee', serif;
-  font-size: 30px;
-  letter-spacing: 1px;
+  font-family: 'Raleway', serif;
+  font-size: 25px;
   text-shadow: 4px 4px 4px black;
 }
 

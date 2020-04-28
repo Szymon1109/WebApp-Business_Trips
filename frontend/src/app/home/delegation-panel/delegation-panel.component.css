@@ -1,0 +1,17 @@
+@import url("../edit-profile-panel/edit-profile-panel.component.css");
+
+.card {
+  background-color: white !important;
+  width: 1200px;
+  height: 450px;
+  overflow: auto;
+}
+
+.card thead th {
+  position: sticky;
+  top: 0;
+}
+
+.table {
+  text-align: center;
+}

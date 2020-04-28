@@ -7,6 +7,7 @@ import {HomeComponent} from "./home/home.component";
 import {HomePanelComponent} from "./home/home-panel/home-panel.component";
 import {EditProfilePanelComponent} from "./home/edit-profile-panel/edit-profile-panel.component";
 import {ChangePwdPanelComponent} from "./home/change-pwd-panel/change-pwd-panel.component";
+import {DelegationPanelComponent} from "./home/delegation-panel/delegation-panel.component";
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -26,6 +27,10 @@ const routes: Routes = [
       {
         path: 'password',
         component: ChangePwdPanelComponent
+      },
+      {
+        path: 'delegation',
+        component: DelegationPanelComponent
       }
     ]
   },

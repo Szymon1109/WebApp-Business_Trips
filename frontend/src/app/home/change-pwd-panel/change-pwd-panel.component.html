@@ -6,23 +6,25 @@
         <div class="form-row message">
           <div class="form-group text-center form-space">
             <label>
-              <input type="password" class="form-control form-space" placeholder="new password" [(ngModel)]="password" name="password">
+              <input type="password" class="form-control" placeholder="new password" [(ngModel)]="password" name="password">
             </label>
           </div>
         </div>
         <div class="form-row">
           <div class="form-group text-center form-space">
             <label>
-              <input type="password" class="form-control form-space" placeholder="repeat new password" [(ngModel)]="password1" name="password">
+              <input type="password" class="form-control" placeholder="new password" [(ngModel)]="password1" name="password">
             </label>
           </div>
         </div>
-        <div class="form-row row-space">
-          <div class="form-group text-center">
+        <div class="form-row">
+          <div class="form-group text-center row-space">
             <label>
-              <input type="password" class="form-control form-space" placeholder="old password" [(ngModel)]="password2" name="password">
+              <input type="password" class="form-control" placeholder="old password" [(ngModel)]="password2" name="password">
             </label>
           </div>
+        </div>
+        <div class="form-row">
           <div class="form-group text-center">
             <input type="submit" value="Change" class="btn reg_btn" (click)="register()">
           </div>
