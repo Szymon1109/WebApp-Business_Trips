@@ -1,0 +1,29 @@
+<div class="container">
+  <div class="d-flex justify-content-center h-100">
+    <div class="card">
+      <div class="text-center message"> Given password is not correct! </div>
+      <form>
+        <div class="form-row message">
+          <div class="form-group text-center form-space">
+            <label>
+              <textarea class="form-control form-desc" rows="1" placeholder="description" [(ngModel)]="description" name="description"></textarea>
+            </label>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group text-center form-del">
+            <select class="browser-default custom-select">
+              <option selected="">delegation</option>
+              <option value="1">1: 2020-04-28 15:00</option>
+              <option value="2">2: 2020-04-29 09:30</option>
+              <option value="3">3: 2020-05-03 21:00</option>
+            </select>
+          </div>
+          <div class="form-group text-center form-space2">
+            <input type="submit" value="Remove" class="btn reg_btn" (click)="register()">
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

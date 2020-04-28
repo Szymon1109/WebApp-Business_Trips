@@ -10,6 +10,7 @@ import {ChangePwdPanelComponent} from "./home/profile-tab/change-pwd-panel/chang
 import {DelegationPanelComponent} from "./home/delegation-tab/delegation-panel/delegation-panel.component";
 import {AddPanelComponent} from "./home/delegation-tab/add-panel/add-panel.component";
 import {EditDelegPanelComponent} from "./home/delegation-tab/edit-deleg-panel/edit-deleg-panel.component";
+import {RemoveDelegPanelComponent} from "./home/delegation-tab/remove-deleg-panel/remove-deleg-panel.component";
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -41,6 +42,10 @@ const routes: Routes = [
       {
         path: 'delegation/edit',
         component: EditDelegPanelComponent
+      },
+      {
+        path: 'delegation/remove',
+        component: RemoveDelegPanelComponent
       }
     ]
   },

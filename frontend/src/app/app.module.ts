@@ -16,6 +16,7 @@ import { ChangePwdPanelComponent } from './home/profile-tab/change-pwd-panel/cha
 import { DelegationPanelComponent } from './home/delegation-tab/delegation-panel/delegation-panel.component';
 import { AddPanelComponent } from './home/delegation-tab/add-panel/add-panel.component';
 import { EditDelegPanelComponent } from './home/delegation-tab/edit-deleg-panel/edit-deleg-panel.component';
+import { RemoveDelegPanelComponent } from './home/delegation-tab/remove-deleg-panel/remove-deleg-panel.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { EditDelegPanelComponent } from './home/delegation-tab/edit-deleg-panel/
     ChangePwdPanelComponent,
     DelegationPanelComponent,
     AddPanelComponent,
-    EditDelegPanelComponent
+    EditDelegPanelComponent,
+    RemoveDelegPanelComponent
   ],
   imports: [
     BrowserModule,
