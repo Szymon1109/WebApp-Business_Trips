@@ -15,6 +15,7 @@ import { EditProfilePanelComponent } from './home/profile-tab/edit-profile-panel
 import { ChangePwdPanelComponent } from './home/profile-tab/change-pwd-panel/change-pwd-panel.component';
 import { DelegationPanelComponent } from './home/delegation-tab/delegation-panel/delegation-panel.component';
 import { AddPanelComponent } from './home/delegation-tab/add-panel/add-panel.component';
+import { EditDelegPanelComponent } from './home/delegation-tab/edit-deleg-panel/edit-deleg-panel.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { AddPanelComponent } from './home/delegation-tab/add-panel/add-panel.com
     EditProfilePanelComponent,
     ChangePwdPanelComponent,
     DelegationPanelComponent,
-    AddPanelComponent
+    AddPanelComponent,
+    EditDelegPanelComponent
   ],
   imports: [
     BrowserModule,
