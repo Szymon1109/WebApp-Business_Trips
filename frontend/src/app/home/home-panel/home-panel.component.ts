@@ -24,24 +24,23 @@ export class HomePanelComponent implements OnInit {
       this.email = user.email;
       this.companyName = user.companyName;
       this.companyAddress = user.companyAddress;
-      this.companyNip = user.companyNip;
-      this.registrationDate = user.registrationDate;
+      this.companyNip = "NIP: " + user.companyNip;
+      this.registrationDate = "Registration date: " + user.registrationDate;
 
-      let roles = "";
+      let roles = "Roles: ";
       user.roles.forEach(function (role) {
         roles += role.roleName.toString() + " ";
       });
       this.roles = roles;
 
       if(user.status == true) {
-        this.status = "ACTIVE";
+        this.status = "Status: ACTIVE";
       } else {
-        this.status = "INACTIVE";
+        this.status = "Status: INACTIVE";
       }
     });
   }
 
   ngOnInit() {
-
   }
 }

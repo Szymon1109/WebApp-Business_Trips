@@ -71,6 +71,29 @@ public class UserService {
         return userRepository.findAll();
     }
 
+    public ResponseEntity<Void> editUser(String email, User newUser) {
+        Optional<User> oldUser = userRepository.findByEmail(email);
+
+        if(oldUser.isPresent()) {
+            User user = oldUser.get();
+            try {
+                user.setName(newUser.getName());
+                user.setLastName(newUser.getLastName());
+                user.setCompanyName(newUser.getCompanyName());
+                user.setCompanyAddress(newUser.getCompanyAddress());
+                user.setCompanyNip(newUser.getCompanyNip());
+                userRepository.save(user);
+            }
+            catch(Exception e) {
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
     public ResponseEntity<User> changePassword(Long userId, String newPassword){
         Optional<User> user = userRepository.findById(userId);
 

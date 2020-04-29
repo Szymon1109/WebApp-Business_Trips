@@ -42,6 +42,12 @@ public class UserController {
         return userService.getUserByEmail(email);
     }
 
+    @PutMapping("/edit")
+    public ResponseEntity<Void> editUser(@RequestParam("email") String email,
+                                         @RequestBody User user) {
+        return userService.editUser(email, user);
+    }
+
     @PutMapping("/change")
     public ResponseEntity<User> changePassword(@RequestParam("id") Long id,
                                @RequestParam("pwd") String pwd){

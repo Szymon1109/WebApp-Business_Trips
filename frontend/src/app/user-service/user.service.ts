@@ -30,6 +30,13 @@ export class UserService {
     return this.http.get<User>(this.userUrl + "/byEmail", {headers: this.headers, params: params});
   }
 
+  public editUser(user: User) {
+    let email = this.authService.email;
+    let params = new HttpParams().set("email", email.toString());
+
+    return this.http.put<User>(this.userUrl + "/edit", user, {headers: this.headers, params: params});
+  }
+
   public findAll(): Observable<User[]> {
     return this.http.get<User[]>(this.userUrl + '/all', {headers: this.headers});
   }
