@@ -1,3 +1,5 @@
+import {Role} from "./role";
+
 export class User {
   id: number;
   name: string;
@@ -9,7 +11,7 @@ export class User {
   companyNip: string;
   status: boolean;
   registrationDate: string;
-  role: string;
+  roles: Set<Role>;
 
   constructor(name: string, lastName: string, email: string, password: string,
               companyName: string, companyAddress: string, companyNip: string) {

@@ -62,6 +62,11 @@ public class UserService {
         }
     }
 
+    public User getUserByEmail(String email) {
+        Optional<User> user = userRepository.findByEmail(email);
+        return user.orElse(null);
+    }
+
     public List<User> getAllUsers(){
         return userRepository.findAll();
     }

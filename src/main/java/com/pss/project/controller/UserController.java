@@ -36,6 +36,12 @@ public class UserController {
         return userService.getAllUsers();
     }
 
+    @GetMapping("/byEmail")
+    @ResponseBody
+    public User getUserByEmail(@RequestParam("email") String email) {
+        return userService.getUserByEmail(email);
+    }
+
     @PutMapping("/change")
     public ResponseEntity<User> changePassword(@RequestParam("id") Long id,
                                @RequestParam("pwd") String pwd){

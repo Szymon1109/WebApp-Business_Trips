@@ -28,6 +28,10 @@ export class AuthService {
     return 'Basic ' + btoa(email + ':' + password);
   }
 
+  getBasicAuthToken() {
+    return 'Basic ' + btoa(this.email + ':' + this.password);
+  }
+
   registerSuccessfulLogin(email) {
     sessionStorage.setItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME, email);
   }
