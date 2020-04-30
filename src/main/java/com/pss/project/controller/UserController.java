@@ -43,15 +43,15 @@ public class UserController {
     }
 
     @PutMapping("/edit")
-    public ResponseEntity<Void> editUser(@RequestParam("email") String email,
+    public ResponseEntity<User> editUser(@RequestParam("email") String email,
                                          @RequestBody User user) {
         return userService.editUser(email, user);
     }
 
     @PutMapping("/change")
-    public ResponseEntity<User> changePassword(@RequestParam("id") Long id,
-                               @RequestParam("pwd") String pwd){
-        return userService.changePassword(id, pwd);
+    public ResponseEntity<User> changePassword(@RequestParam("email") String email,
+                                               @RequestBody String pwd){
+        return userService.changePassword(email, pwd);
     }
 
     @DeleteMapping("/delete")

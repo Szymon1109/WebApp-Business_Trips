@@ -13,6 +13,7 @@ export class RegisterComponent implements OnInit {
   message: string;
   welcomeText: string;
   emailText: string;
+  pwdText: string;
   dataText: string;
 
   user: User;
@@ -30,6 +31,7 @@ export class RegisterComponent implements OnInit {
 
     this.welcomeText = "Type your data to sign up...";
     this.emailText = "Given email is already taken!";
+    this.pwdText = "Given password is too weak!";
     this.dataText = "Given data are not correct!";
     this.message = this.welcomeText;
   }
@@ -52,13 +54,17 @@ export class RegisterComponent implements OnInit {
       this.userService.save(this.user).subscribe(() => {
         this.router.navigate(['/login']);
       },(error) => {
-        if(error.status == 406) {
-          this.message = '.';
-          setTimeout(() => this.message = this.emailText, 30);
-        }
-        else if(error.status == 400) {
+        if(error.status == 400) {
           this.message = '.';
           setTimeout(() => this.message = this.dataText, 30);
+        }
+        else if(error.status == 406) {
+          this.message = '.';
+          setTimeout(() => this.message = this.pwdText, 30);
+        }
+        else if(error.status == 409) {
+          this.message = '.';
+          setTimeout(() => this.message = this.emailText, 30);
         }
       })
     }

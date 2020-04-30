@@ -29,7 +29,7 @@ public class UserService {
     public UserService(UserRepository userRepository,
                        DelegationRepository delegationRepository,
                        RoleRepository roleRepository,
-                       PasswordEncoder passwordEncoder){
+                       PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.delegationRepository = delegationRepository;
         this.roleRepository = roleRepository;
@@ -41,10 +41,10 @@ public class UserService {
     }
 
     public ResponseEntity<User> registerUser(User user) {
-        if(userRepository.findByEmail(user.getEmail()).isPresent()) {
-            return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+        if (userRepository.findByEmail(user.getEmail()).isPresent()) {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
-        else {
+        else if (user.getPassword().matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{8,}$")) {
             try {
                 user.setPassword(passwordEncoder.encode(user.getPassword()));
 
@@ -54,11 +54,13 @@ public class UserService {
                 user.setRoles(roles);
 
                 user = userRepository.save(user);
-            }
-            catch(Exception e){
+            } catch (Exception e) {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
             return new ResponseEntity<>(user, HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
         }
     }
 
@@ -71,7 +73,7 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public ResponseEntity<Void> editUser(String email, User newUser) {
+    public ResponseEntity<User> editUser(String email, User newUser) {
         Optional<User> oldUser = userRepository.findByEmail(email);
 
         if(oldUser.isPresent()) {
@@ -82,27 +84,35 @@ public class UserService {
                 user.setCompanyName(newUser.getCompanyName());
                 user.setCompanyAddress(newUser.getCompanyAddress());
                 user.setCompanyNip(newUser.getCompanyNip());
-                userRepository.save(user);
+                user = userRepository.save(user);
             }
             catch(Exception e) {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
-            return new ResponseEntity<>(HttpStatus.OK);
+            return new ResponseEntity<>(user, HttpStatus.OK);
         }
         else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
-    public ResponseEntity<User> changePassword(Long userId, String newPassword){
-        Optional<User> user = userRepository.findById(userId);
+    public ResponseEntity<User> changePassword(String email, String newPassword){
+        Optional<User> user = userRepository.findByEmail(email);
 
         if(user.isPresent()) {
-            User userSave = user.get();
-            userSave.setPassword(passwordEncoder.encode(newPassword));
-            userSave = userRepository.save(userSave);
-
-            return new ResponseEntity<>(userSave, HttpStatus.OK);
+            if (newPassword.matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{8,}$")) {
+                User userSave = user.get();
+                try {
+                    userSave.setPassword(passwordEncoder.encode(newPassword));
+                    userSave = userRepository.save(userSave);
+                } catch (Exception e) {
+                    return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+                }
+                return new ResponseEntity<>(userSave, HttpStatus.OK);
+            }
+            else {
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
         }
         else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

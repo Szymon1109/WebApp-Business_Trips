@@ -8,11 +8,7 @@ import {AuthService} from "../auth-service/auth.service";
 export class UserService {
 
   private readonly userUrl: string;
-
-  private headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': this.authService.getBasicAuthToken()
-    });
+  private headers: HttpHeaders;
 
   constructor(private http: HttpClient,
               private authService: AuthService) {
@@ -24,20 +20,48 @@ export class UserService {
   }
 
   public findByEmail(): Observable<User> {
+    this.headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': this.authService.getBasicAuthToken()
+    });
+
     let email = this.authService.email;
     let params = new HttpParams().set("email", email.toString());
 
-    return this.http.get<User>(this.userUrl + "/byEmail", {headers: this.headers, params: params});
+    return this.http.get<null>(this.userUrl + "/byEmail", {headers: this.headers, params: params});
   }
 
   public editUser(user: User) {
+    this.headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': this.authService.getBasicAuthToken()
+    });
+
     let email = this.authService.email;
     let params = new HttpParams().set("email", email.toString());
 
     return this.http.put<User>(this.userUrl + "/edit", user, {headers: this.headers, params: params});
   }
 
+  public changePwd(password: String) {
+    this.headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': this.authService.getBasicAuthToken()
+    });
+
+    let email = this.authService.email;
+    let params = new HttpParams()
+      .set("email", email.toString());
+
+    return this.http.put<String>(this.userUrl + "/change", password, {headers: this.headers, params: params});
+  }
+
   public findAll(): Observable<User[]> {
+    this.headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': this.authService.getBasicAuthToken()
+    });
+
     return this.http.get<User[]>(this.userUrl + '/all', {headers: this.headers});
   }
 }

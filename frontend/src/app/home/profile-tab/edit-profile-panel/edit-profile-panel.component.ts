@@ -52,7 +52,14 @@ export class EditProfilePanelComponent implements OnInit {
       this.userService.editUser(this.user).subscribe(() => {
         this.message = '.';
         setTimeout(() => this.message = this.successText, 30);
-      }, () => {
+
+        this.name = "";
+        this.lastName = "";
+        this.companyName = "";
+        this.companyAddress = "";
+        this.companyNip = "";
+      },
+        () => {
         this.message = '.';
         setTimeout(() => this.message = this.errorText, 30);
       })
