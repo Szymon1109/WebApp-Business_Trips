@@ -20,25 +20,6 @@ public class DelegationController {
         this.delegationService = delegationService;
     }
 
-    @PostMapping("/add")
-    public ResponseEntity<Delegation> add(@RequestParam("id") Long id,
-                                          @ModelAttribute("delegation") Delegation delegation){
-        return delegationService.addDelegation(id, delegation);
-    }
-
-    @DeleteMapping("/delete")
-    @ResponseBody
-    public ResponseEntity<Boolean> remove(@RequestParam("userId") Long userId,
-                                          @RequestParam("delegationId") Long delegationId){
-        return delegationService.removeDelegation(userId, delegationId);
-    }
-
-    @PutMapping("/change")
-    public ResponseEntity<Delegation> change(@RequestParam("id") Long id,
-                                             @ModelAttribute("delegation") Delegation delegation){
-        return delegationService.changeDelegation(id, delegation);
-    }
-
     @GetMapping("/all")
     @ResponseBody
     public List<Delegation> getAll(){
@@ -51,9 +32,32 @@ public class DelegationController {
         return delegationService.getAllDelegationsOrderByDateTimeStartDesc();
     }
 
-    @GetMapping("allByUser")
+    @GetMapping("/allByUser")
     @ResponseBody
-    public List<Delegation> getAllByUserInOrder(@RequestParam("id") Long id){
-        return delegationService.getAllDelByUserByDateTimeStartDesc(id);
+    public List<Delegation> getAllByUserInOrder(@RequestParam("email") String email){
+        return delegationService.getAllDelByUserByDateTimeStartDesc(email);
+    }
+
+    @GetMapping("/futureByUser")
+    @ResponseBody
+    public List<Delegation> getAllFutureByUserInOrder(@RequestParam("email") String email){
+        return delegationService.getAllFutDelByUserByDateTimeStartDesc(email);
+    }
+
+    @PostMapping("/add")
+    public ResponseEntity<Delegation> add(@RequestParam("email") String email,
+                                          @RequestBody Delegation delegation){
+        return delegationService.addDelegation(email, delegation);
+    }
+
+    @PutMapping("/change")
+    public ResponseEntity<Delegation> change(@RequestParam("id") Long id,
+                                             @RequestBody Delegation delegation){
+        return delegationService.changeDelegation(id, delegation);
+    }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<Boolean> remove(@RequestParam("id") Long delegationId){
+        return delegationService.removeDelegation(delegationId);
     }
 }

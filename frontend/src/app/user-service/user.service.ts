@@ -24,7 +24,6 @@ export class UserService {
       'Content-Type': 'application/json',
       'Authorization': this.authService.getBasicAuthToken()
     });
-
     let email = this.authService.email;
     let params = new HttpParams().set("email", email.toString());
 
@@ -36,7 +35,6 @@ export class UserService {
       'Content-Type': 'application/json',
       'Authorization': this.authService.getBasicAuthToken()
     });
-
     let email = this.authService.email;
     let params = new HttpParams().set("email", email.toString());
 
@@ -48,20 +46,10 @@ export class UserService {
       'Content-Type': 'application/json',
       'Authorization': this.authService.getBasicAuthToken()
     });
-
     let email = this.authService.email;
     let params = new HttpParams()
       .set("email", email.toString());
 
     return this.http.put<String>(this.userUrl + "/change", password, {headers: this.headers, params: params});
-  }
-
-  public findAll(): Observable<User[]> {
-    this.headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': this.authService.getBasicAuthToken()
-    });
-
-    return this.http.get<User[]>(this.userUrl + '/all', {headers: this.headers});
   }
 }

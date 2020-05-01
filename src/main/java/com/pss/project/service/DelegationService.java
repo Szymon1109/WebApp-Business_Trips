@@ -9,8 +9,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class DelegationService {
@@ -24,8 +26,29 @@ public class DelegationService {
         this.delegationRepository = delegationRepository;
     }
 
-    public ResponseEntity<Delegation> addDelegation(Long userId, Delegation delegation){
-        Optional<User> user = userRepository.findById(userId);
+    public List<Delegation> getAllDelegations(){
+        return delegationRepository.findAll();
+    }
+
+    public List<Delegation> getAllDelegationsOrderByDateTimeStartDesc(){
+        return delegationRepository.findByOrderByDateTimeStartDesc();
+    }
+
+    public List<Delegation> getAllDelByUserByDateTimeStartDesc(String email){
+        return delegationRepository.findAllByUserEmailOrderByDateTimeStartDesc(email);
+    }
+
+    public List<Delegation> getAllFutDelByUserByDateTimeStartDesc(String email) {
+        LocalDateTime localDateTime = LocalDateTime.now();
+
+        return delegationRepository.findAllByUserEmailOrderByDateTimeStartDesc(email)
+                .stream()
+                .filter(del -> del.getDateTimeStop().isAfter(localDateTime))
+                .collect(Collectors.toList());
+    }
+
+    public ResponseEntity<Delegation> addDelegation(String email, Delegation delegation){
+        Optional<User> user = userRepository.findByEmail(email);
 
         if(user.isPresent()) {
             delegation.setUser(user.get());
@@ -38,40 +61,33 @@ public class DelegationService {
         }
     }
 
-    public ResponseEntity<Boolean> removeDelegation(Long userId, Long delegationId){
-        Optional<Delegation> delegation = delegationRepository.findById(delegationId);
-
-        if(delegation.isPresent()) {
-            Delegation thisDelegation = delegation.get();
-
-            if (thisDelegation.getUser().getId().equals(userId)) {
-                delegationRepository.delete(thisDelegation);
-                return new ResponseEntity<>(true, HttpStatus.OK);
-            }
-            else {
-                return new ResponseEntity<>(false, HttpStatus.BAD_REQUEST);
-            }
-        }
-        else {
-            return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
-        }
-    }
-
     public ResponseEntity<Delegation> changeDelegation(Long delegationId, Delegation del){
         Optional<Delegation> thisDelegation = delegationRepository.findById(delegationId);
 
         if(thisDelegation.isPresent()) {
-            Delegation delegation = new Delegation(
-                    thisDelegation.get().getId(), del.getDescription(), thisDelegation.get().getUser(), del.getDateTimeStart(),
-                    del.getDateTimeStop(), del.getTravelDietAmount(), del.getBreakfastNumber(),
-                    del.getDinnerNumber(), del.getSupperNumber(), del.getTransport(),
-                    del.getTicketPrice(), del.getAutoCapacity(), del.getDistance(),
-                    del.getAccommodationPrice(), del.getOtherTicketsPrice(),
-                    del.getOtherOutlayDesc(), del.getOtherOutlayPrice());
+            Delegation delegation = thisDelegation.get();
+            try {
+                delegation.setDescription(del.getDescription());
+                delegation.setDateTimeStart(del.getDateTimeStart());
+                delegation.setDateTimeStop(del.getDateTimeStop());
+                delegation.setTravelDietAmount(del.getTravelDietAmount());
+                delegation.setBreakfastNumber(del.getBreakfastNumber());
+                delegation.setDinnerNumber(del.getDinnerNumber());
+                delegation.setSupperNumber(del.getSupperNumber());
+                delegation.setTransport(del.getTransport());
+                delegation.setTicketPrice(del.getTicketPrice());
+                delegation.setAutoCapacity(del.getAutoCapacity());
+                delegation.setDistance(del.getDistance());
+                delegation.setAccommodationPrice(del.getAccommodationPrice());
+                delegation.setOtherTicketsPrice(del.getOtherTicketsPrice());
+                delegation.setOtherOutlayDesc(del.getOtherOutlayDesc());
+                delegation.setOtherOutlayPrice(del.getOtherOutlayPrice());
 
-            delegationRepository.delete(thisDelegation.get());
-            delegation = delegationRepository.save(delegation);
-
+                delegation = delegationRepository.save(delegation);
+            }
+            catch(Exception e) {
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
             return new ResponseEntity<>(delegation, HttpStatus.OK);
         }
         else {
@@ -79,15 +95,17 @@ public class DelegationService {
         }
     }
 
-    public List<Delegation> getAllDelegations(){
-        return delegationRepository.findAll();
-    }
+    public ResponseEntity<Boolean> removeDelegation(Long delegationId){
+        Optional<Delegation> delegation = delegationRepository.findById(delegationId);
 
-    public List<Delegation> getAllDelegationsOrderByDateTimeStartDesc(){
-        return delegationRepository.findByOrderByDateTimeStartDesc();
-    }
+        if(delegation.isPresent()) {
+            Delegation thisDelegation = delegation.get();
+            delegationRepository.delete(thisDelegation);
 
-    public List<Delegation> getAllDelByUserByDateTimeStartDesc(Long userId){
-        return delegationRepository.findAllByUserIdOrderByDateTimeStartDesc(userId);
+            return new ResponseEntity<>(true, HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
+        }
     }
 }

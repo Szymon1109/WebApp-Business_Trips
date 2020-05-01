@@ -36,8 +36,22 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public ResponseEntity<Void> login() {
-        return new ResponseEntity<>(HttpStatus.OK);
+    public List<User> getAllUsers(){
+        return userRepository.findAll();
+    }
+
+    public List<User> getAllUsersByRoleName(String roleName){
+        Role role = roleRepository.findByRoleName(roleName);
+        return userRepository.findAllByRolesContains(role);
+    }
+
+    public User getUserByEmail(String email) {
+        Optional<User> user = userRepository.findByEmail(email);
+        return user.orElse(null);
+    }
+
+    public ResponseEntity<Boolean> login() {
+        return new ResponseEntity<>(true, HttpStatus.OK);
     }
 
     public ResponseEntity<User> registerUser(User user) {
@@ -62,15 +76,6 @@ public class UserService {
         else {
             return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
         }
-    }
-
-    public User getUserByEmail(String email) {
-        Optional<User> user = userRepository.findByEmail(email);
-        return user.orElse(null);
-    }
-
-    public List<User> getAllUsers(){
-        return userRepository.findAll();
     }
 
     public ResponseEntity<User> editUser(String email, User newUser) {
@@ -130,10 +135,5 @@ public class UserService {
         else {
             return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
         }
-    }
-
-    public List<User> getAllUsersByRoleName(String roleName){
-        Role role = roleRepository.findByRoleName(roleName);
-        return userRepository.findAllByRolesContains(role);
     }
 }

@@ -149,7 +149,7 @@ public class DelegationControllerTests {
     public void testDelegationServiceGetAllDelByUserByDateTimeStartDesc() throws Exception {
         List<Delegation> all = Arrays.asList(delegation1, delegation2);
 
-        given(delegationService.getAllDelByUserByDateTimeStartDesc(1L)).willReturn(all);
+        given(delegationService.getAllDelByUserByDateTimeStartDesc("1L")).willReturn(all);
         mvc.perform(get("/api/delegation/allByUser")
                 .param("id", "1")
                 .accept(MediaType.APPLICATION_JSON)

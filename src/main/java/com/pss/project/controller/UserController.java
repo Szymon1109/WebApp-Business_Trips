@@ -20,26 +20,32 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/auth")
-    public ResponseEntity<Void> authentication() {
-        return userService.login();
-    }
-
-    @PostMapping("/add")
-    public ResponseEntity<User> register(@RequestBody User user){
-        return userService.registerUser(user);
-    }
-
     @GetMapping("/all")
     @ResponseBody
     public List<User> getAll(){
         return userService.getAllUsers();
     }
 
+    @GetMapping("/allByRole")
+    @ResponseBody
+    public List<User> getAllByRole(@RequestParam("name") String name){
+        return userService.getAllUsersByRoleName(name);
+    }
+
     @GetMapping("/byEmail")
     @ResponseBody
     public User getUserByEmail(@RequestParam("email") String email) {
         return userService.getUserByEmail(email);
+    }
+
+    @GetMapping("/auth")
+    public ResponseEntity<Boolean> authentication() {
+        return userService.login();
+    }
+
+    @PostMapping("/add")
+    public ResponseEntity<User> register(@RequestBody User user){
+        return userService.registerUser(user);
     }
 
     @PutMapping("/edit")
@@ -55,14 +61,7 @@ public class UserController {
     }
 
     @DeleteMapping("/delete")
-    @ResponseBody
     public ResponseEntity<Boolean> deleteById(@RequestParam("id") Long id){
         return userService.deleteUserById(id);
-    }
-
-    @GetMapping("/allByRole")
-    @ResponseBody
-    public List<User> getAllByRole(@RequestParam("name") String name){
-        return userService.getAllUsersByRoleName(name);
     }
 }
