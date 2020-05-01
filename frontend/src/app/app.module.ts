@@ -17,6 +17,7 @@ import { DelegationPanelComponent } from './home/delegation-tab/delegation-panel
 import { AddPanelComponent } from './home/delegation-tab/add-panel/add-panel.component';
 import { EditDelegPanelComponent } from './home/delegation-tab/edit-deleg-panel/edit-deleg-panel.component';
 import { RemoveDelegPanelComponent } from './home/delegation-tab/remove-deleg-panel/remove-deleg-panel.component';
+import {DelegationService} from "./delegation-service/delegation.service";
 
 @NgModule({
   declarations: [
@@ -38,7 +39,11 @@ import { RemoveDelegPanelComponent } from './home/delegation-tab/remove-deleg-pa
     HttpClientModule,
     FormsModule
   ],
-  providers: [AuthService, UserService],
+  providers: [
+    AuthService,
+    UserService,
+    DelegationService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

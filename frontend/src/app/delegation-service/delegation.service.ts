@@ -15,7 +15,7 @@ export class DelegationService {
     this.delegationUrl = 'http://localhost:8080/api/delegation';
   }
 
-  public findByEmail(): Observable<Delegation> {
+  public findByEmail(): Observable<Delegation[]> {
     this.headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': this.authService.getBasicAuthToken()
@@ -23,7 +23,7 @@ export class DelegationService {
     let email = this.authService.email;
     let params = new HttpParams().set("email", email.toString());
 
-    return this.http.get<Delegation>(this.delegationUrl + "/allByUser", {headers: this.headers, params: params});
+    return this.http.get<Delegation[]>(this.delegationUrl + "/allByUser", {headers: this.headers, params: params});
   }
 
   public findFutureByEmail(): Observable<Delegation> {

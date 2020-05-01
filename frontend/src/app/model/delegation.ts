@@ -8,9 +8,9 @@ export class Delegation {
   dinnerNumber: number;
   supperNumber: number;
   transport: string;
-  ticketPrice: number;
+  ticketPrice: string;
   autoCapacity: string;
-  distance: number;
+  distance: string;
   accommodationPrice: number;
   otherTicketsPrice: number;
   otherOutlayDesc: string;
@@ -19,7 +19,7 @@ export class Delegation {
   constructor(id: number, description: string, dateTimeStart: string,
               dateTimeStop: string, travelDietAmount: number, breakfastNumber: number,
               dinnerNumber: number, supperNumber: number, transport: string,
-              ticketPrice: number, autoCapacity: string, distance: number,
+              ticketPrice: string, autoCapacity: string, distance: string,
               accommodationPrice: number, otherTicketsPrice: number,
               otherOutlayDesc: string, otherOutlayPrice: number) {
     this.id = id;

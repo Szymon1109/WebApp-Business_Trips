@@ -23,42 +23,24 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Szkolenie w Warszawie</td>
-            <td>2020.04.28 14:30</td>
-            <td>2020.04.29 14:30</td>
-            <td>30</td>
-            <td>2</td>
-            <td>2</td>
-            <td>1</td>
-            <td>Car</td>
-            <td>-</td>
-            <td>High</td>
-            <td>200</td>
-            <td>50</td>
-            <td>0</td>
-            <td>-</td>
-            <td>0</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Szkolenie w Krakowie</td>
-            <td>2020.04.27 10:00</td>
-            <td>2020.04.29 14:30</td>
-            <td>30</td>
-            <td>2</td>
-            <td>2</td>
-            <td>1</td>
-            <td>Car</td>
-            <td>-</td>
-            <td>High</td>
-            <td>300</td>
-            <td>50</td>
-            <td>0</td>
-            <td>-</td>
-            <td>0</td>
-          </tr>
+        <tr *ngFor="let del of delegations">
+          <td>{{del.id}}</td>
+          <td>{{del.description}}</td>
+          <td>{{del.dateTimeStart}}</td>
+          <td>{{del.dateTimeStop}}</td>
+          <td>{{del.travelDietAmount}}</td>
+          <td>{{del.breakfastNumber}}</td>
+          <td>{{del.dinnerNumber}}</td>
+          <td>{{del.supperNumber}}</td>
+          <td>{{del.transport}}</td>
+          <td>{{del.ticketPrice}}</td>
+          <td>{{del.autoCapacity}}</td>
+          <td>{{del.distance}}</td>
+          <td>{{del.accommodationPrice}}</td>
+          <td>{{del.otherTicketsPrice}}</td>
+          <td>{{del.otherOutlayDesc}}</td>
+          <td>{{del.otherOutlayPrice}}</td>
+        </tr>
         </tbody>
         </table>
     </div>
