@@ -4,6 +4,7 @@ import com.pss.project.model.Delegation;
 import com.pss.project.model.User;
 import com.pss.project.repository.DelegationRepository;
 import com.pss.project.repository.UserRepository;
+import com.pss.project.util.Transport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -51,10 +52,26 @@ public class DelegationService {
         Optional<User> user = userRepository.findByEmail(email);
 
         if(user.isPresent()) {
-            delegation.setUser(user.get());
-            Delegation newDelegation = delegationRepository.save(delegation);
-
-            return new ResponseEntity<>(newDelegation, HttpStatus.OK);
+            if (delegation.getDateTimeStop().isAfter(delegation.getDateTimeStart())) {
+                try {
+                    if(delegation.getTransport().equals(Transport.CAR)) {
+                        delegation.setTicketPrice(null);
+                    }
+                    else {
+                        delegation.setAutoCapacity(null);
+                        delegation.setDistance(null);
+                    }
+                    delegation.setUser(user.get());
+                    delegation = delegationRepository.save(delegation);
+                }
+                catch (Exception e) {
+                    return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+                }
+                return new ResponseEntity<>(delegation, HttpStatus.OK);
+            }
+            else {
+                return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+            }
         }
         else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

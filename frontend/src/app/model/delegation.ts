@@ -3,26 +3,25 @@ export class Delegation {
   description: string;
   dateTimeStart: string;
   dateTimeStop: string;
-  travelDietAmount: number;
-  breakfastNumber: number;
-  dinnerNumber: number;
-  supperNumber: number;
+  travelDietAmount: string;
+  breakfastNumber: string;
+  dinnerNumber: string;
+  supperNumber: string;
   transport: string;
   ticketPrice: string;
   autoCapacity: string;
   distance: string;
-  accommodationPrice: number;
-  otherTicketsPrice: number;
+  accommodationPrice: string;
+  otherTicketsPrice: string;
   otherOutlayDesc: string;
-  otherOutlayPrice: number;
+  otherOutlayPrice: string;
 
-  constructor(id: number, description: string, dateTimeStart: string,
-              dateTimeStop: string, travelDietAmount: number, breakfastNumber: number,
-              dinnerNumber: number, supperNumber: number, transport: string,
+  constructor(description: string, dateTimeStart: string,
+              dateTimeStop: string, travelDietAmount: string, breakfastNumber: string,
+              dinnerNumber: string, supperNumber: string, transport: string,
               ticketPrice: string, autoCapacity: string, distance: string,
-              accommodationPrice: number, otherTicketsPrice: number,
-              otherOutlayDesc: string, otherOutlayPrice: number) {
-    this.id = id;
+              accommodationPrice: string, otherTicketsPrice: string,
+              otherOutlayDesc: string, otherOutlayPrice: string) {
     this.description = description;
     this.dateTimeStart = dateTimeStart;
     this.dateTimeStop = dateTimeStop;

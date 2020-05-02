@@ -50,16 +50,16 @@ export class DelegationPanelComponent implements OnInit {
       }
 
       if(del.accommodationPrice == null) {
-        del.accommodationPrice = 0;
+        del.accommodationPrice = "0";
       }
       if(del.otherTicketsPrice == null) {
-        del.otherTicketsPrice = 0;
+        del.otherTicketsPrice = "0;"
       }
       if(del.otherOutlayDesc == null) {
         del.otherOutlayDesc = "-";
       }
       if(del.otherOutlayPrice == null) {
-        del.otherOutlayPrice = 0;
+        del.otherOutlayPrice = "0";
       }
     });
     return array;
