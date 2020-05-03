@@ -11,7 +11,6 @@ export class AuthService {
   password: String;
 
   constructor(private http: HttpClient) {
-
   }
 
   authenticationService(email: String, password: String) {
