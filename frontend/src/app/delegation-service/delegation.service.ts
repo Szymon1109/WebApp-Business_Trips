@@ -59,13 +59,13 @@ export class DelegationService {
     return this.http.put<Delegation>(this.delegationUrl + "/change", delegation, {headers: this.headers, params: params});
   }
 
-  public deleteDelegation(id: number) {
+  public deleteDelegation(id: string) {
     this.headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': this.authService.getBasicAuthToken()
     });
     let params = new HttpParams()
-      .set("id", id.toString());
+      .set("id", id);
 
     return this.http.delete(this.delegationUrl + "/delete", {headers: this.headers, params: params});
   }

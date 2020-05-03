@@ -122,8 +122,12 @@ public class DelegationService {
 
         if(delegation.isPresent()) {
             Delegation thisDelegation = delegation.get();
-            delegationRepository.delete(thisDelegation);
-
+            try {
+                delegationRepository.delete(thisDelegation);
+            }
+            catch(Exception e) {
+                return new ResponseEntity<>(false, HttpStatus.BAD_REQUEST);
+            }
             return new ResponseEntity<>(true, HttpStatus.OK);
         }
         else {
