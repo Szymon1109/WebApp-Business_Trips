@@ -1,7 +1,7 @@
 <div class="container">
   <div class="d-flex justify-content-center h-100">
     <div class="card">
-      <div class="text-center message"> Given password is not correct! </div>
+      <div class="text-center message"> {{message}} </div>
       <form>
         <div class="form-row message">
           <div class="form-group text-center form-space">
@@ -13,12 +13,12 @@
         <div class="form-row">
           <div class="form-group text-center form-space">
             <label>
-              <input type="text" class="form-control form-date" placeholder="start (YYYY-MM-DD HH:MM)" [(ngModel)]="dateStart" name="dateStart">
+              <input type="text" class="form-control form-date" placeholder="start [YYYY-MM-DD HH:MM]" [(ngModel)]="dateStart" name="dateStart">
             </label>
           </div>
           <div class="form-group text-center">
             <label>
-              <input type="text" class="form-control form-date form-space2" placeholder="stop (YYYY-MM-DD HH:MM)" [(ngModel)]="dateStop" name="dateStop">
+              <input type="text" class="form-control form-date form-space2" placeholder="stop [YYYY-MM-DD HH:MM]" [(ngModel)]="dateStop" name="dateStop">
             </label>
           </div>
         </div>
@@ -46,29 +46,33 @@
         </div>
         <div class="form-row">
           <div class="form-group text-center form-space form-val">
-            <select class="browser-default custom-select">
-              <option selected="">transport</option>
-              <option value="1">car</option>
-              <option value="2">train</option>
-              <option value="3">bus</option>
-            </select>
+            <label>
+              <select name="transport" [(ngModel)]="transport" (ngModelChange)="onChange($event)" class="browser-default custom-select">
+                <option value="">transport</option>
+                <option value="car">car</option>
+                <option value="train">train</option>
+                <option value="bus">bus</option>
+              </select>
+            </label>
           </div>
           <div class="form-group text-center">
             <label>
-              <input type="text" class="form-control form-val form-space2" placeholder="ticket price" [(ngModel)]="ticketPrice" name="ticketPrice">
+              <input [attr.disabled]="disableTicket ? '' : null" type="text" class="form-control form-val form-space2" placeholder="ticket price" [(ngModel)]="ticketPrice" name="ticketPrice">
             </label>
           </div>
           <div class="form-group text-center form-space2 form-val">
-            <select class="browser-default custom-select">
-              <option selected="">auto capacity</option>
-              <option value="1">low</option>
-              <option value="2">medium</option>
-              <option value="3">high</option>
-            </select>
+            <label>
+              <select [attr.disabled]="disableAuto ? '' : null" name="autoCapacity" [(ngModel)]="autoCapacity" class="browser-default custom-select">
+                <option value="">auto capacity</option>
+                <option value="low">low</option>
+                <option value="medium">medium</option>
+                <option value="high">high</option>
+              </select>
+            </label>
           </div>
           <div class="form-group text-center">
             <label>
-              <input type="text" class="form-control form-val form-space2" placeholder="distance" [(ngModel)]="distance" name="distance">
+              <input [attr.disabled]="disableAuto ? '' : null" type="text" class="form-control form-val form-space2" placeholder="distance" [(ngModel)]="distance" name="distance">
             </label>
           </div>
         </div>
@@ -98,19 +102,24 @@
         </div>
         <div class="form-row">
           <div class="form-group text-center form-del">
-            <select class="browser-default custom-select">
-              <option selected="">delegation</option>
-              <option value="1">1: 2020-04-28 15:00</option>
-              <option value="2">2: 2020-04-29 09:30</option>
-              <option value="3">3: 2020-05-03 21:00</option>
-            </select>
+            <label>
+              <select name="chosenDel" [(ngModel)]="chosenDel" (ngModelChange)="onChangeDel($event)" class="browser-default custom-select">
+                <option value="">delegation</option>
+                <option *ngFor="let del of delegations" [ngValue]="del">
+                  {{
+                    "(" + del.id + ") " + del.dateTimeStart
+                    .replace("T", " ")
+                    .substr(0,16)
+                  }}
+                </option>
+              </select>
+            </label>
           </div>
           <div class="form-group text-center form-space2">
-            <input type="submit" value="Edit" class="btn reg_btn" (click)="register()">
+            <input type="submit" value="Edit" class="btn reg_btn" (click)="edit()">
           </div>
         </div>
       </form>
     </div>
   </div>
 </div>
-

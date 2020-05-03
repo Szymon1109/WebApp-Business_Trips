@@ -26,7 +26,7 @@ export class DelegationService {
     return this.http.get<Delegation[]>(this.delegationUrl + "/allByUser", {headers: this.headers, params: params});
   }
 
-  public findFutureByEmail(): Observable<Delegation> {
+  public findFutureByEmail(): Observable<Delegation[]> {
     this.headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': this.authService.getBasicAuthToken()
@@ -34,7 +34,7 @@ export class DelegationService {
     let email = this.authService.email;
     let params = new HttpParams().set("email", email.toString());
 
-    return this.http.get<Delegation>(this.delegationUrl + "/futureByUser", {headers: this.headers, params: params});
+    return this.http.get<Delegation[]>(this.delegationUrl + "/futureByUser", {headers: this.headers, params: params});
   }
 
   public addDelegation(delegation: Delegation) {
@@ -48,13 +48,13 @@ export class DelegationService {
     return this.http.post<Delegation>(this.delegationUrl + "/add", delegation, {headers: this.headers, params: params});
   }
 
-  public editDelegation(delegation: Delegation) {
+  public editDelegation(id: string, delegation: Delegation) {
     this.headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': this.authService.getBasicAuthToken()
     });
     let params = new HttpParams()
-      .set("id", delegation.id.toString());
+      .set("id", id);
 
     return this.http.put<Delegation>(this.delegationUrl + "/change", delegation, {headers: this.headers, params: params});
   }

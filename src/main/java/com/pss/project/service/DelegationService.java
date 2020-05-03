@@ -82,30 +82,35 @@ public class DelegationService {
         Optional<Delegation> thisDelegation = delegationRepository.findById(delegationId);
 
         if(thisDelegation.isPresent()) {
-            Delegation delegation = thisDelegation.get();
-            try {
-                delegation.setDescription(del.getDescription());
-                delegation.setDateTimeStart(del.getDateTimeStart());
-                delegation.setDateTimeStop(del.getDateTimeStop());
-                delegation.setTravelDietAmount(del.getTravelDietAmount());
-                delegation.setBreakfastNumber(del.getBreakfastNumber());
-                delegation.setDinnerNumber(del.getDinnerNumber());
-                delegation.setSupperNumber(del.getSupperNumber());
-                delegation.setTransport(del.getTransport());
-                delegation.setTicketPrice(del.getTicketPrice());
-                delegation.setAutoCapacity(del.getAutoCapacity());
-                delegation.setDistance(del.getDistance());
-                delegation.setAccommodationPrice(del.getAccommodationPrice());
-                delegation.setOtherTicketsPrice(del.getOtherTicketsPrice());
-                delegation.setOtherOutlayDesc(del.getOtherOutlayDesc());
-                delegation.setOtherOutlayPrice(del.getOtherOutlayPrice());
+            if (del.getDateTimeStop().isAfter(del.getDateTimeStart())) {
+                Delegation delegation = thisDelegation.get();
+                try {
+                    delegation.setDescription(del.getDescription());
+                    delegation.setDateTimeStart(del.getDateTimeStart());
+                    delegation.setDateTimeStop(del.getDateTimeStop());
+                    delegation.setTravelDietAmount(del.getTravelDietAmount());
+                    delegation.setBreakfastNumber(del.getBreakfastNumber());
+                    delegation.setDinnerNumber(del.getDinnerNumber());
+                    delegation.setSupperNumber(del.getSupperNumber());
+                    delegation.setTransport(del.getTransport());
+                    delegation.setTicketPrice(del.getTransport().equals(Transport.CAR) ? null : del.getTicketPrice());
+                    delegation.setAutoCapacity(!del.getTransport().equals(Transport.CAR) ? null : del.getAutoCapacity());
+                    delegation.setDistance(!del.getTransport().equals(Transport.CAR) ? null : del.getDistance());
+                    delegation.setAccommodationPrice(del.getAccommodationPrice());
+                    delegation.setOtherTicketsPrice(del.getOtherTicketsPrice());
+                    delegation.setOtherOutlayDesc(del.getOtherOutlayDesc());
+                    delegation.setOtherOutlayPrice(del.getOtherOutlayPrice());
 
-                delegation = delegationRepository.save(delegation);
+                    delegation = delegationRepository.save(delegation);
+                }
+                catch (Exception e) {
+                    return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+                }
+                return new ResponseEntity<>(delegation, HttpStatus.OK);
             }
-            catch(Exception e) {
-                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            else {
+                return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
             }
-            return new ResponseEntity<>(delegation, HttpStatus.OK);
         }
         else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
