@@ -18,6 +18,7 @@ import { AddPanelComponent } from './home/delegation-tab/add-panel/add-panel.com
 import { EditDelegPanelComponent } from './home/delegation-tab/edit-deleg-panel/edit-deleg-panel.component';
 import { RemoveDelegPanelComponent } from './home/delegation-tab/remove-deleg-panel/remove-deleg-panel.component';
 import {DelegationService} from "./delegation-service/delegation.service";
+import {AuthGuard} from "./auth-guard/auth.guard";
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import {DelegationService} from "./delegation-service/delegation.service";
   ],
   providers: [
     AuthService,
+    AuthGuard,
     UserService,
     DelegationService
   ],

@@ -11,6 +11,7 @@ import {DelegationPanelComponent} from "./home/delegation-tab/delegation-panel/d
 import {AddPanelComponent} from "./home/delegation-tab/add-panel/add-panel.component";
 import {EditDelegPanelComponent} from "./home/delegation-tab/edit-deleg-panel/edit-deleg-panel.component";
 import {RemoveDelegPanelComponent} from "./home/delegation-tab/remove-deleg-panel/remove-deleg-panel.component";
+import {AuthGuard} from "./auth-guard/auth.guard";
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -21,36 +22,43 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: HomePanelComponent
+        component: HomePanelComponent,
+        canActivate: [AuthGuard]
       },
       {
         path: 'profile/edit',
-        component: EditProfilePanelComponent
+        component: EditProfilePanelComponent,
+        canActivate: [AuthGuard]
       },
       {
         path: 'profile/password',
-        component: ChangePwdPanelComponent
+        component: ChangePwdPanelComponent,
+        canActivate: [AuthGuard]
       },
       {
         path: 'delegation/list',
-        component: DelegationPanelComponent
+        component: DelegationPanelComponent,
+        canActivate: [AuthGuard]
       },
       {
         path: 'delegation/add',
-        component: AddPanelComponent
+        component: AddPanelComponent,
+        canActivate: [AuthGuard]
       },
       {
         path: 'delegation/edit',
-        component: EditDelegPanelComponent
+        component: EditDelegPanelComponent,
+        canActivate: [AuthGuard]
       },
       {
         path: 'delegation/remove',
-        component: RemoveDelegPanelComponent
+        component: RemoveDelegPanelComponent,
+        canActivate: [AuthGuard]
       }
     ]
   },
   { path: '', pathMatch:'full', redirectTo: 'login' },
-  { path: '**', pathMatch:'full', redirectTo: 'login' }
+  { path: '**', pathMatch:'full', redirectTo: 'home' }
 ];
 
 @NgModule({

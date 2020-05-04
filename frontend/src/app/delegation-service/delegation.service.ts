@@ -20,7 +20,7 @@ export class DelegationService {
       'Content-Type': 'application/json',
       'Authorization': this.authService.getBasicAuthToken()
     });
-    let email = this.authService.email;
+    let email = this.authService.getEmailLogged();
     let params = new HttpParams().set("email", email.toString());
 
     return this.http.get<Delegation[]>(this.delegationUrl + "/allByUser", {headers: this.headers, params: params});
@@ -31,7 +31,7 @@ export class DelegationService {
       'Content-Type': 'application/json',
       'Authorization': this.authService.getBasicAuthToken()
     });
-    let email = this.authService.email;
+    let email = this.authService.getEmailLogged();
     let params = new HttpParams().set("email", email.toString());
 
     return this.http.get<Delegation[]>(this.delegationUrl + "/futureByUser", {headers: this.headers, params: params});
@@ -42,7 +42,7 @@ export class DelegationService {
       'Content-Type': 'application/json',
       'Authorization': this.authService.getBasicAuthToken()
     });
-    let email = this.authService.email;
+    let email = this.authService.getEmailLogged();
     let params = new HttpParams().set("email", email.toString());
 
     return this.http.post<Delegation>(this.delegationUrl + "/add", delegation, {headers: this.headers, params: params});

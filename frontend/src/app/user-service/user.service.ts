@@ -24,7 +24,7 @@ export class UserService {
       'Content-Type': 'application/json',
       'Authorization': this.authService.getBasicAuthToken()
     });
-    let email = this.authService.email;
+    let email = this.authService.getEmailLogged();
     let params = new HttpParams().set("email", email.toString());
 
     return this.http.get<null>(this.userUrl + "/byEmail", {headers: this.headers, params: params});
@@ -35,7 +35,7 @@ export class UserService {
       'Content-Type': 'application/json',
       'Authorization': this.authService.getBasicAuthToken()
     });
-    let email = this.authService.email;
+    let email = this.authService.getEmailLogged();
     let params = new HttpParams().set("email", email.toString());
 
     return this.http.put<User>(this.userUrl + "/edit", user, {headers: this.headers, params: params});
@@ -46,7 +46,7 @@ export class UserService {
       'Content-Type': 'application/json',
       'Authorization': this.authService.getBasicAuthToken()
     });
-    let email = this.authService.email;
+    let email = this.authService.getEmailLogged();
     let params = new HttpParams()
       .set("email", email.toString());
 

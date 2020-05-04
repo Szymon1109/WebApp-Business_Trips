@@ -5,50 +5,51 @@ import {map} from "rxjs/operators";
 @Injectable()
 export class AuthService {
 
-  USER_NAME_SESSION_ATTRIBUTE_NAME = 'authenticatedUser';
-
-  email: String;
-  password: String;
+  USER_EMAIL = 'email';
+  USER_PASSWORD = 'password';
 
   constructor(private http: HttpClient) {
   }
 
-  authenticationService(email: String, password: String) {
+  authenticationService(email: string, password: string) {
     return this.http.get("http://localhost:8080/api/user/auth",
-      { headers: { Authorization: this.createBasicAuthToken(email, password) }})
+      { headers: { Authorization: 'Basic ' + btoa(email + ':' + password) }})
       .pipe(map(() => {
-        this.email = email;
-        this.password = password;
-        this.registerSuccessfulLogin(email);
+        this.setItems(email, password);
     }));
   }
 
-  createBasicAuthToken(email: String, password: String) {
+  setItems(email: string, password: string) {
+    sessionStorage.setItem(this.USER_EMAIL, email);
+    sessionStorage.setItem(this.USER_PASSWORD, password);
+  }
+
+  isLoggedIn(): boolean {
+    let email = sessionStorage.getItem(this.USER_EMAIL);
+    let password = sessionStorage.getItem(this.USER_PASSWORD);
+    return email !== null && password !== null;
+  }
+
+  getBasicAuthToken(): string {
+    let email = this.getEmailLogged();
+    let password = this.getPasswordLogged();
     return 'Basic ' + btoa(email + ':' + password);
   }
 
-  getBasicAuthToken() {
-    return 'Basic ' + btoa(this.email + ':' + this.password);
+  getEmailLogged(): string {
+    return sessionStorage.getItem(this.USER_EMAIL);
   }
 
-  registerSuccessfulLogin(email) {
-    sessionStorage.setItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME, email);
+  getPasswordLogged(): string {
+    return sessionStorage.getItem(this.USER_PASSWORD);
+  }
+
+  setPasswordLogged(password: string) {
+    return sessionStorage.setItem(this.USER_PASSWORD, password);
   }
 
   logout() {
-    sessionStorage.removeItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME);
-    this.email = null;
-    this.password = null;
-  }
-
-  isUserLoggedIn() {
-    let user = sessionStorage.getItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME);
-    return user !== null;
-  }
-
-  getLoggedInEmail() {
-    let email = sessionStorage.getItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME);
-    if (email === null) return '';
-    return email;
+    sessionStorage.removeItem(this.USER_EMAIL);
+    sessionStorage.removeItem(this.USER_PASSWORD);
   }
 }

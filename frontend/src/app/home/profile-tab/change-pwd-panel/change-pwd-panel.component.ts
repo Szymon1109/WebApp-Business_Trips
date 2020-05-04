@@ -39,10 +39,10 @@ export class ChangePwdPanelComponent implements OnInit {
       && this.passwordOld != null && this.passwordOld != "") {
 
       if (this.passwordNew1 == this.passwordNew2) {
-        if(this.authService.password == this.passwordOld) {
+        if(this.authService.getPasswordLogged() == this.passwordOld) {
 
           this.userService.changePwd(this.passwordNew1).subscribe(() => {
-            this.authService.password = this.passwordNew1;
+            this.authService.setPasswordLogged(this.passwordNew1);
             this.passwordNew1 = "";
             this.passwordNew2 = "";
             this.passwordOld = "";
