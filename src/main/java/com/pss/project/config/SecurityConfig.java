@@ -45,6 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().authorizeRequests().antMatchers("/api/delegation/**").authenticated()
                 .and().formLogin().permitAll()
                 .and().logout().permitAll()
+                .and().oauth2Login()
                 .and().httpBasic();
     }
 }
