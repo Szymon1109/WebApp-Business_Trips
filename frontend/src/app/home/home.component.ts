@@ -9,8 +9,12 @@ import {AuthService} from "../auth-service/auth.service";
 })
 export class HomeComponent implements OnInit {
 
+  socialLogged: boolean;
+
   constructor(private router: Router,
-              private authService: AuthService) { }
+              private authService: AuthService) {
+    this.socialLogged = this.authService.getSocialLogin() == "true";
+  }
 
   ngOnInit() {
   }

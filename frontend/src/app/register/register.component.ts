@@ -41,7 +41,6 @@ export class RegisterComponent implements OnInit {
       this.firstName = name[0] === undefined ? "" : name[0];
       this.surname = name[1] === undefined ? "" : name[1];
       this.email = socialUser.email;
-      this.userService.socialUser = undefined;
     }
   }
 

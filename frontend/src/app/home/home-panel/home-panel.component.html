@@ -4,9 +4,8 @@
       <table>
         <tr>
           <th class="space-col">
-            <div class="icon"><i class="fa fa-user"></i></div>
-            <!--<img src="{{ user.photoUrl }}">-->
-            <!--*ngIf="loggedIn===false"-->
+            <div *ngIf="socialLogged()==false" class="icon"><i class="fa fa-user"></i></div>
+            <img *ngIf="socialLogged()==true" src="{{ photoUrl }}" alt="photo">
           </th>
           <th>
             <div class="size-big space-row"> {{fullName}} </div>

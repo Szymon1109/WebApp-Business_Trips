@@ -67,13 +67,14 @@ export class LoginComponent implements OnInit {
       && this.socialUser.email !== undefined && this.socialUser.email !== null) {
 
       this.userService.checkEmail(this.socialUser.email).subscribe(value => {
+        this.userService.socialUser = this.socialUser;
+
         if (value) {
           this.myAuthService.authenticationSocialService(this.socialUser.email);
           this.router.navigate(['/home']);
         }
         else {
           this.router.navigate(['/register']);
-          this.userService.socialUser = this.socialUser;
         }
       })
     }

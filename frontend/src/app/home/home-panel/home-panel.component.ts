@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {UserService} from "../../user-service/user.service";
+import {AuthService} from "../../auth-service/auth.service";
 
 @Component({
   selector: 'app-home-panel',
@@ -16,8 +17,10 @@ export class HomePanelComponent implements OnInit {
   roles: string;
   status: string;
   registrationDate: string;
+  photoUrl: string;
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService,
+              private authService: AuthService) {
 
     this.userService.findByEmail().subscribe(user => {
       this.fullName = user.name + " " + user.lastName;
@@ -36,11 +39,21 @@ export class HomePanelComponent implements OnInit {
       if(user.status == true) {
         this.status = "Status: ACTIVE";
       } else {
-        this.status = "Status: INACTIVE";
+        this.status = "Status: NOT ACTIVE";
       }
     });
+
+    if(this.socialLogged()) {
+      this.photoUrl = this.userService.socialUser.photoUrl;
+    }
   }
 
   ngOnInit() {
   }
+
+  socialLogged(): boolean {
+    return this.authService.getSocialLogin() == "true";
+  }
+
+
 }

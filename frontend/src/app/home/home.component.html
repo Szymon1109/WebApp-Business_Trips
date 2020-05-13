@@ -16,7 +16,7 @@
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             <a class="dropdown-item tab" routerLink="/home/profile/edit"><span> Edit data </span></a>
-            <a class="dropdown-item tab" routerLink="/home/profile/password"><span> Change password </span></a>
+            <a *ngIf="socialLogged==false" class="dropdown-item tab" routerLink="/home/profile/password"><span> Change password </span></a>
           </div>
         </li>
         <li class="nav-item dropdown active">
