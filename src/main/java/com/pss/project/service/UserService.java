@@ -54,6 +54,10 @@ public class UserService {
         return new ResponseEntity<>(true, HttpStatus.OK);
     }
 
+    public Boolean emailExisting(String email) {
+        return userRepository.findByEmail(email).isPresent();
+    }
+
     public ResponseEntity<User> registerUser(User user) {
         if (userRepository.findByEmail(user.getEmail()).isPresent()) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);

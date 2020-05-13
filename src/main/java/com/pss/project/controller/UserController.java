@@ -43,6 +43,12 @@ public class UserController {
         return userService.login();
     }
 
+    @GetMapping("/exist")
+    @ResponseBody
+    public Boolean checkEmailExisting(@RequestParam("email") String email) {
+        return userService.emailExisting(email);
+    }
+
     @PostMapping("/add")
     public ResponseEntity<User> register(@RequestBody User user){
         return userService.registerUser(user);

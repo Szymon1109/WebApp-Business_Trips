@@ -3,12 +3,14 @@ import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {User} from "../model/user";
 import {Observable} from "rxjs";
 import {AuthService} from "../auth-service/auth.service";
+import {SocialUser} from "ng4-social-login";
 
 @Injectable()
 export class UserService {
 
   private readonly userUrl: string;
   private headers: HttpHeaders;
+  socialUser: SocialUser;
 
   constructor(private http: HttpClient,
               private authService: AuthService) {
@@ -17,6 +19,11 @@ export class UserService {
 
   public save(user: User) {
     return this.http.post<User>(this.userUrl + '/add', user);
+  }
+
+  public checkEmail(email: string) {
+    let params = new HttpParams().set("email", email);
+    return this.http.get<boolean>(this.userUrl + "/exist", {params: params});
   }
 
   public findByEmail(): Observable<User> {

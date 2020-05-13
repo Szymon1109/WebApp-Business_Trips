@@ -34,6 +34,15 @@ export class RegisterComponent implements OnInit {
     this.pwdText = "Given password is too weak!";
     this.dataText = "Given data are not correct!";
     this.message = this.welcomeText;
+
+    let socialUser = this.userService.socialUser;
+    if(socialUser !== undefined) {
+      let name = socialUser.name.split(" ");
+      this.firstName = name[0] === undefined ? "" : name[0];
+      this.surname = name[1] === undefined ? "" : name[1];
+      this.email = socialUser.email;
+      this.userService.socialUser = undefined;
+    }
   }
 
   ngOnInit() {

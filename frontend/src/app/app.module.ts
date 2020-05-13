@@ -19,6 +19,22 @@ import { EditDelegPanelComponent } from './home/delegation-tab/edit-deleg-panel/
 import { RemoveDelegPanelComponent } from './home/delegation-tab/remove-deleg-panel/remove-deleg-panel.component';
 import {DelegationService} from "./delegation-service/delegation.service";
 import {AuthGuard} from "./auth-guard/auth.guard";
+import { SocialLoginModule, AuthServiceConfig, GoogleLoginProvider, FacebookLoginProvider } from 'ng4-social-login';
+
+const config = new AuthServiceConfig([
+  {
+    id: GoogleLoginProvider.PROVIDER_ID,
+    provider: new GoogleLoginProvider('640403541746-94fshk3mo7g5pr38k2tf5uc77ocoghs5.apps.googleusercontent.com')
+  },
+  {
+    id: FacebookLoginProvider.PROVIDER_ID,
+    provider: new FacebookLoginProvider('239279973988150')
+  }
+], false);
+
+export function provideConfig() {
+  return config;
+}
 
 @NgModule({
   declarations: [
@@ -38,13 +54,18 @@ import {AuthGuard} from "./auth-guard/auth.guard";
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    SocialLoginModule
   ],
   providers: [
     AuthService,
     AuthGuard,
     UserService,
-    DelegationService
+    DelegationService,
+    {
+      provide: AuthServiceConfig,
+      useFactory: provideConfig
+    }
   ],
   bootstrap: [AppComponent]
 })
