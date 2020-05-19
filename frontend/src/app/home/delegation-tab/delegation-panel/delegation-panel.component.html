@@ -20,6 +20,7 @@
             <th scope="col">OTH tickets pr.</th>
             <th scope="col">OTH outlay desc.</th>
             <th scope="col">OTH outlay pr.</th>
+            <th scope="col">Export delegation</th>
           </tr>
         </thead>
         <tbody>
@@ -40,9 +41,13 @@
           <td>{{del.otherTicketsPrice}}</td>
           <td>{{del.otherOutlayDesc}}</td>
           <td>{{del.otherOutlayPrice}}</td>
+          <td>
+            <input type="button" value="PDF" class="btn" (click)="savePDF(del)">
+            <input type="button" value="Print" class="btn" (click)="print(del)">
+          </td>
         </tr>
         </tbody>
-        </table>
+      </table>
     </div>
   </div>
 </div>

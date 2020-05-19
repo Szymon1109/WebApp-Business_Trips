@@ -15,3 +15,14 @@
 .table {
   text-align: center;
 }
+
+.btn{
+  color: black;
+  background-color: white;
+  width: 70px
+}
+
+.btn:hover{
+  color: white;
+  background-color: grey;
+}

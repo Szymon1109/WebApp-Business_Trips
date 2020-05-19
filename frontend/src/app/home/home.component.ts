@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from "@angular/router";
 import {AuthService} from "../auth-service/auth.service";
+import {UserService} from "../user-service/user.service";
 
 @Component({
   selector: 'app-home',
@@ -12,7 +13,8 @@ export class HomeComponent implements OnInit {
   socialLogged: boolean;
 
   constructor(private router: Router,
-              private authService: AuthService) {
+              private authService: AuthService,
+              private userService: UserService) {
     this.socialLogged = this.authService.getSocialLogin() == "true";
   }
 
@@ -21,6 +23,7 @@ export class HomeComponent implements OnInit {
 
   logout() {
     this.authService.logout();
+    this.userService.socialUser = undefined;
     this.router.navigate(['/login']);
   }
 }
