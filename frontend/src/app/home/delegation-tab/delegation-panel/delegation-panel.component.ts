@@ -70,6 +70,11 @@ export class DelegationPanelComponent implements OnInit {
   }
 
   public savePDF(del: Delegation) {
+    let doc = this.pdf(del);
+    doc.save('delegation_export.pdf');
+  }
+
+  public pdf(del: Delegation): jsPDF {
     let doc = new jsPDF();
     let email = this.authService.getEmailLogged();
 
@@ -100,10 +105,15 @@ export class DelegationPanelComponent implements OnInit {
     doc.setFontType('italic');
     doc.text('Business Trips Management System © 2020',60,280);
 
-    doc.save('delegation_export.pdf');
+    return doc;
   }
 
   public print(del: Delegation) {
-
+    let doc = this.pdf(del);
+    doc.setProperties({
+      title: "Printing delegation"
+    });
+    doc.autoPrint();
+    window.open(doc.output('bloburl'));
   }
 }
