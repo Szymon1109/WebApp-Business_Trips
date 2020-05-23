@@ -10,12 +10,30 @@ import {UserService} from "../user-service/user.service";
 })
 export class HomeComponent implements OnInit {
 
-  socialLogged: boolean;
+  private socialLogged: boolean;
+  private userLogged: boolean;
+  private adminLogged: boolean;
 
   constructor(private router: Router,
               private authService: AuthService,
               private userService: UserService) {
     this.socialLogged = this.authService.getSocialLogin() == "true";
+
+    let userLogged: boolean = false;
+    let adminLogged: boolean = false;
+
+    this.userService.findByEmail().subscribe(user => {
+      user.roles.forEach(function (role) {
+        if (role.roleName == "USER") {
+          userLogged = true;
+        }
+        if(role.roleName == "ADMIN") {
+          adminLogged = true;
+        }
+      });
+      this.userLogged = userLogged;
+      this.adminLogged = adminLogged;
+    });
   }
 
   ngOnInit() {
