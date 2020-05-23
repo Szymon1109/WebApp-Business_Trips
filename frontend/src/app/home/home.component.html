@@ -9,11 +9,13 @@
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
           <a class="nav-link tab" routerLink="/home"><span> Home </span></a>
+          <div class="dropdown-divider"></div>
         </li>
         <li *ngIf="userLogged==true" class="nav-item dropdown active">
           <a class="nav-link dropdown-toggle tab" data-toggle="dropdown">
             <span> Profile </span>
           </a>
+          <div class="dropdown-divider"></div>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item tab" routerLink="/home/profile/edit"><span> Edit data </span></a></li>
             <li><a *ngIf="socialLogged==false" class="dropdown-item tab" routerLink="/home/profile/password"><span> Change password </span></a></li>
@@ -23,8 +25,14 @@
           <a class="nav-link dropdown-toggle tab" data-toggle="dropdown">
             <span> Delegation </span>
           </a>
+          <div class="dropdown-divider"></div>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item tab" routerLink="/home/delegation/list"><span> Your delegations </span></a></li>
+            <li><a class="dropdown-item tab" routerLink="/home/delegation/list/confirmed"><span> All confirmed </span></a></li>
+            <li><a class="dropdown-item tab" routerLink="/home/delegation/list/unconfirmed"><span> All unconfirmed </span></a></li>
+            <li class="dropdown-divider"></li>
+            <li><a class="dropdown-item tab" routerLink="/home/delegation/request/confirmation"><span> Request confirmation </span></a></li>
+            <li><a class="dropdown-item tab" routerLink="/home/delegation/request/unconfirmation"><span> Request unconfirmation </span></a></li>
+            <li class="dropdown-divider"></li>
             <li><a class="dropdown-item tab" routerLink="/home/delegation/add"><span> Add delegation </span></a></li>
             <li><a class="dropdown-item tab" routerLink="/home/delegation/edit"><span> Edit delegation </span></a></li>
             <li><a class="dropdown-item tab" routerLink="/home/delegation/remove"><span> Remove delegation </span></a></li>
@@ -37,12 +45,13 @@
           <a class="nav-link dropdown-toggle tab" data-toggle="dropdown">
             <span> Admin Panel </span>
           </a>
+          <div class="dropdown-divider"></div>
           <ul class="dropdown-menu dropdown-menu-right">
-            <li><a class="dropdown-item tab" routerLink="/home/admin/user/makeAdmin"><span> Make user admin </span></a></li>
+            <li><a class="dropdown-item tab" routerLink="/home/admin/user/make-admin"><span> Make user admin </span></a></li>
             <li><a class="dropdown-item tab" routerLink="/home/admin/user/remove"><span> Remove user </span></a></li>
             <li class="dropdown-divider"></li>
-            <li><a class="dropdown-item tab" routerLink="/home/admin/request/confirm"><span> Confirmation request </span></a></li>
-            <li><a class="dropdown-item tab" routerLink="/home/admin/request/unconfirm"><span> Unconfirmation request </span></a></li>
+            <li><a class="dropdown-item tab" routerLink="/home/admin/request/confirmation"><span> Confirmation request </span></a></li>
+            <li><a class="dropdown-item tab" routerLink="/home/admin/request/unconfirmation"><span> Unconfirmation request </span></a></li>
             <li class="dropdown-divider"></li>
             <li><a class="dropdown-item tab" routerLink="/home/admin/delegation/edit"><span> Edit delegation </span></a></li>
             <li><a class="dropdown-item tab" routerLink="/home/admin/delegation/remove"><span> Remove delegation </span></a></li>
@@ -50,6 +59,7 @@
         </li>
         <li class="ml-auto nav-item active">
           <a class="nav-link tab" (click)="logout()"><span> Logout </span></a>
+          <div class="dropdown-divider"></div>
         </li>
       </ul>
     </div>
