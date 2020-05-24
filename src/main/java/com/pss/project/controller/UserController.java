@@ -20,16 +20,22 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/all")
+    @GetMapping("/admin/all")
     @ResponseBody
-    public List<User> getAll(){
+    public List<User> getAll() {
         return userService.getAllUsers();
     }
 
-    @GetMapping("/allByRole")
+    @GetMapping("/admin/allByRole")
     @ResponseBody
-    public List<User> getAllByRole(@RequestParam("name") String name){
+    public List<User> getAllByRole(@RequestParam("name") String name) {
         return userService.getAllUsersByRoleName(name);
+    }
+
+    @GetMapping("/admin/allNotAdmins")
+    @ResponseBody
+    public List<User> getAllUsersNotAdmins() {
+        return userService.getAllUsersNotAdmins();
     }
 
     @GetMapping("/byEmail")
@@ -50,7 +56,7 @@ public class UserController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<User> register(@RequestBody User user){
+    public ResponseEntity<User> register(@RequestBody User user) {
         return userService.registerUser(user);
     }
 
@@ -62,12 +68,17 @@ public class UserController {
 
     @PutMapping("/change")
     public ResponseEntity<User> changePassword(@RequestParam("email") String email,
-                                               @RequestBody String pwd){
+                                               @RequestBody String pwd) {
         return userService.changePassword(email, pwd);
     }
 
-    @DeleteMapping("/delete")
-    public ResponseEntity<Boolean> deleteById(@RequestParam("id") Long id){
+    @PutMapping("/admin/makeAdmin")
+    public ResponseEntity<User> makeAdmin(@RequestParam("email") String email) {
+        return userService.makeUserAdmin(email);
+    }
+
+    @DeleteMapping("/admin/delete")
+    public ResponseEntity<Boolean> deleteById(@RequestParam("id") Long id) {
         return userService.deleteUserById(id);
     }
 }
