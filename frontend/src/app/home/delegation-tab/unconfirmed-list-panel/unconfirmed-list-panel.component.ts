@@ -16,15 +16,19 @@ export class UnconfirmedListPanelComponent implements OnInit {
   constructor(private delegationService: DelegationService,
               private authService: AuthService) {
 
+    this.loadDelegations();
+  }
+
+  ngOnInit() {
+
+  }
+
+  loadDelegations() {
     //TODO:
     /*this.delegationService.findByEmail().subscribe(
       data => {
         this.delegations = this.editData(data);
       })*/
-  }
-
-  ngOnInit() {
-
   }
 
   editData(array: Array<Delegation>): Array<Delegation> {
