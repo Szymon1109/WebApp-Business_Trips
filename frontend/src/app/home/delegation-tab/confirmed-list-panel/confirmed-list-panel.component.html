@@ -1,3 +1,53 @@
-<p>
-  confirmed-list-panel works!
-</p>
+<div class="container">
+  <div class="d-flex justify-content-center h-100">
+    <div class="card">
+      <table class="table table-hover table-fixed">
+        <thead class="thead-dark text-truncate">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Description</th>
+          <th scope="col">Start time</th>
+          <th scope="col">Stop time</th>
+          <th scope="col">Travel diet</th>
+          <th scope="col">Breakfasts</th>
+          <th scope="col">Dinners</th>
+          <th scope="col">Suppers</th>
+          <th scope="col">Transport</th>
+          <th scope="col">Ticket pr.</th>
+          <th scope="col">Auto cap.</th>
+          <th scope="col">Distance</th>
+          <th scope="col">ACC pr.</th>
+          <th scope="col">OTH tickets pr.</th>
+          <th scope="col">OTH outlay desc.</th>
+          <th scope="col">OTH outlay pr.</th>
+          <th scope="col">Export delegation</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let del of delegations">
+          <td>{{del.id}}</td>
+          <td>{{del.description}}</td>
+          <td>{{del.dateTimeStart}}</td>
+          <td>{{del.dateTimeStop}}</td>
+          <td>{{del.travelDietAmount}}</td>
+          <td>{{del.breakfastNumber}}</td>
+          <td>{{del.dinnerNumber}}</td>
+          <td>{{del.supperNumber}}</td>
+          <td>{{del.transport.toLowerCase()}}</td>
+          <td>{{del.ticketPrice}}</td>
+          <td>{{del.autoCapacity.toLowerCase()}}</td>
+          <td>{{del.distance}}</td>
+          <td>{{del.accommodationPrice}}</td>
+          <td>{{del.otherTicketsPrice}}</td>
+          <td>{{del.otherOutlayDesc}}</td>
+          <td>{{del.otherOutlayPrice}}</td>
+          <td>
+            <input type="button" value="PDF" class="btn" (click)="savePDF(del)">
+            <input type="button" value="Print" class="btn" (click)="print(del)">
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
