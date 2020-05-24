@@ -1,0 +1,11 @@
+@import url("../../delegation-tab/edit-deleg-panel/edit-deleg-panel.component.css");
+
+.form-user {
+  width: 220px;
+  margin-left: 70px;
+}
+
+.form-del {
+  width: 220px;
+  margin-left: 0;
+}

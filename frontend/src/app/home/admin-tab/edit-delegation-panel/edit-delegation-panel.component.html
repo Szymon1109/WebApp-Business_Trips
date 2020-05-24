@@ -1,3 +1,139 @@
-<p>
-  edit-delegation-panel works!
-</p>
+<div class="container">
+  <div class="d-flex justify-content-center h-100">
+    <div class="card">
+      <div class="text-center message"> {{message}} </div>
+      <form>
+        <div class="form-row message">
+          <div class="form-group text-center form-space">
+            <label>
+              <textarea class="form-control form-desc" rows="1" placeholder="description" [(ngModel)]="description" name="description"></textarea>
+            </label>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group text-center form-space">
+            <label>
+              <input type="text" class="form-control form-date" placeholder="start [YYYY-MM-DD HH:MM]" [(ngModel)]="dateStart" name="dateStart">
+            </label>
+          </div>
+          <div class="form-group text-center">
+            <label>
+              <input type="text" class="form-control form-date form-space2" placeholder="stop [YYYY-MM-DD HH:MM]" [(ngModel)]="dateStop" name="dateStop">
+            </label>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group text-center form-space">
+            <label>
+              <input type="text" class="form-control form-val" placeholder="travel diet" [(ngModel)]="travelDiet" name="travelDiet">
+            </label>
+          </div>
+          <div class="form-group text-center">
+            <label>
+              <input type="text" class="form-control form-val form-space2" placeholder="breakfasts" [(ngModel)]="breakfasts" name="breakfasts">
+            </label>
+          </div>
+          <div class="form-group text-center">
+            <label>
+              <input type="text" class="form-control form-val form-space2" placeholder="dinners" [(ngModel)]="dinners" name="dinners">
+            </label>
+          </div>
+          <div class="form-group text-center">
+            <label>
+              <input type="text" class="form-control form-val form-space2" placeholder="suppers" [(ngModel)]="suppers" name="suppers">
+            </label>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group text-center form-space form-val">
+            <label>
+              <select name="transport" [(ngModel)]="transport" (ngModelChange)="onChange($event)" class="browser-default custom-select">
+                <option value="">transport</option>
+                <option value="car">car</option>
+                <option value="train">train</option>
+                <option value="bus">bus</option>
+              </select>
+            </label>
+          </div>
+          <div class="form-group text-center">
+            <label>
+              <input [attr.disabled]="disableTicket ? '' : null" type="text" class="form-control form-val form-space2" placeholder="ticket price" [(ngModel)]="ticketPrice" name="ticketPrice">
+            </label>
+          </div>
+          <div class="form-group text-center form-space2 form-val">
+            <label>
+              <select [attr.disabled]="disableAuto ? '' : null" name="autoCapacity" [(ngModel)]="autoCapacity" class="browser-default custom-select">
+                <option value="">auto capacity</option>
+                <option value="low">low</option>
+                <option value="medium">medium</option>
+                <option value="high">high</option>
+              </select>
+            </label>
+          </div>
+          <div class="form-group text-center">
+            <label>
+              <input [attr.disabled]="disableAuto ? '' : null" type="text" class="form-control form-val form-space2" placeholder="distance" [(ngModel)]="distance" name="distance">
+            </label>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group text-center form-space3">
+            <label>
+              <input type="text" class="form-control form-val2" placeholder="acc price" [(ngModel)]="accPrice" name="accPrice">
+            </label>
+          </div>
+          <div class="form-group text-center">
+            <label>
+              <input type="text" class="form-control form-val2 form-space2" placeholder="oth tickets price" [(ngModel)]="othTicketsPrice" name="othTicketsPrice">
+            </label>
+          </div>
+          <div class="form-group text-center">
+            <label>
+              <input type="text" class="form-control form-val2 form-space2" placeholder="oth outlay price" [(ngModel)]="othOutlayPrice" name="othOutlayPrice">
+            </label>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group text-center form-space">
+            <label>
+              <textarea class="form-control form-desc" rows="1" placeholder="other outlay description" [(ngModel)]="othOutlayDesc" name="othOutlayDesc"></textarea>
+            </label>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group text-center form-user">
+            <label>
+              <select name="user" [(ngModel)]="chosenDel" (ngModelChange)="onChangeDel($event)" class="browser-default custom-select">
+                <option value="">user</option>
+                <option *ngFor="let del of delegations" [ngValue]="del">
+                  {{
+                  "(" + del.id + ") " + del.dateTimeStart
+                    .replace("T", " ")
+                    .substr(0,16)
+                  }}
+                </option>
+              </select>
+            </label>
+          </div>
+          <div class="form-group text-center form-del">
+            <label>
+              <select name="chosenDel" [(ngModel)]="chosenDel" (ngModelChange)="onChangeDel($event)" class="browser-default custom-select">
+                <option value="">delegation</option>
+                <option *ngFor="let del of delegations" [ngValue]="del">
+                  {{
+                  "(" + del.id + ") " + del.dateTimeStart
+                    .replace("T", " ")
+                    .substr(0,16)
+                  }}
+                </option>
+              </select>
+            </label>
+          </div>
+          <div class="form-group text-center form-space2">
+            <input type="submit" value="Edit" class="btn reg_btn" (click)="edit()">
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,1 +1,5 @@
 @import url("../../delegation-tab/remove-deleg-panel/remove-deleg-panel.component.css");
+
+.form-del {
+  margin-left: 110px;
+}

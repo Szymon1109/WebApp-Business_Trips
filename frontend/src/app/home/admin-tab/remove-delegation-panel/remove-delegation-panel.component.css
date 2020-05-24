@@ -1,0 +1,20 @@
+@import url("../../delegation-tab/remove-deleg-panel/remove-deleg-panel.component.css");
+
+.card {
+  width: 700px;
+  height: 240px;
+}
+
+.form-desc {
+  margin-left: 50px;
+}
+
+.form-user {
+  width: 230px;
+  margin-left: 50px;
+}
+
+.form-del {
+  width: 220px;
+  margin-left: 0;
+}
