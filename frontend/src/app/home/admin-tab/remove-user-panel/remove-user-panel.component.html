@@ -1,3 +1,38 @@
-<p>
-  remove-user-panel works!
-</p>
+<div class="container">
+  <div class="d-flex justify-content-center h-100">
+    <div class="card">
+      <div class="text-center message"> {{message}} </div>
+      <form>
+        <div class="form-row message">
+          <div class="form-group text-center form-space">
+            <label>
+              <textarea class="form-control form-name" rows="1" placeholder="first name" [(ngModel)]="description" name="name" [disabled]="true"></textarea>
+            </label>
+            <label>
+              <textarea class="form-control form-name" rows="1" placeholder="surname" [(ngModel)]="description" name="lastName" [disabled]="true"></textarea>
+            </label>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group text-center form-del">
+            <label>
+              <select class="browser-default custom-select" name="chosenDel" [(ngModel)]="chosenDel" (ngModelChange)="onChange($event)">
+                <option value="">delegation</option>
+                <option *ngFor="let del of delegations" [ngValue]="del">
+                  {{
+                  "(" + del.id + ") " + del.dateTimeStart
+                    .replace("T", " ")
+                    .substr(0,16)
+                  }}
+                </option>
+              </select>
+            </label>
+          </div>
+          <div class="form-group text-center form-space2">
+            <input type="submit" value="Remove" class="btn reg_btn" (click)="delete()">
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
