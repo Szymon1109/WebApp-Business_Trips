@@ -40,6 +40,11 @@ public class UserService {
         return userRepository.findAll();
     }
 
+    public List<User> getAllUsersNotAdmins(){
+        Role role = roleRepository.findByRoleName("ADMIN");
+        return userRepository.findAllByRolesNotContains(role);
+    }
+
     public List<User> getAllUsersByRoleName(String roleName){
         Role role = roleRepository.findByRoleName(roleName);
         return userRepository.findAllByRolesContains(role);
@@ -122,6 +127,29 @@ public class UserService {
             else {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
+        }
+        else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    public ResponseEntity<User> makeUserAdmin(String email) {
+        Optional<User> userOptional = userRepository.findByEmail(email);
+
+        if(userOptional.isPresent()) {
+            User user = userOptional.get();
+            Role adminRole = roleRepository.findByRoleName("ADMIN");
+            try {
+                Set<Role> roles = user.getRoles();
+                roles.add(adminRole);
+                user.setRoles(roles);
+
+                user = userRepository.save(user);
+            }
+            catch(Exception e) {
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
+            return new ResponseEntity<>(user, HttpStatus.OK);
         }
         else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

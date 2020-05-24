@@ -40,7 +40,7 @@ public class InitService {
 
     @PostConstruct
     public void init(){
-        /*Role r1 = new Role(0L, "USER");
+        Role r1 = new Role(0L, "USER");
         Role r2 = new Role(0L, "ADMIN");
 
         r1 = roleRepository.save(r1);
@@ -82,6 +82,6 @@ public class InitService {
                 LocalDateTime.now().minusHours(5), LocalDateTime.now().plusHours(5),
                 Transport.TRAIN, 58, null, null, 80, 12, null, 0);
 
-        delegationRepository.saveAll(Arrays.asList(d1, d2, d3));*/
+        delegationRepository.saveAll(Arrays.asList(d1, d2, d3));
     }
 }

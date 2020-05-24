@@ -27,28 +27,85 @@ public class DelegationService {
         this.delegationRepository = delegationRepository;
     }
 
-    public List<Delegation> getAllDelegations(){
+    public List<Delegation> getAllDelegations() {
         return delegationRepository.findAll();
     }
 
-    public List<Delegation> getAllDelegationsOrderByDateTimeStartDesc(){
+    public List<Delegation> getAllDelegationsOrderByDateTimeStartDesc() {
         return delegationRepository.findByOrderByDateTimeStartDesc();
     }
 
-    public List<Delegation> getAllDelByUserByDateTimeStartDesc(String email){
+    public List<Delegation> getAllDelByUserByDateTimeStartDesc(String email) {
         return delegationRepository.findAllByUserEmailOrderByDateTimeStartDesc(email);
     }
 
-    public List<Delegation> getAllFutDelByUserByDateTimeStartDesc(String email) {
+    public List<Delegation> getAllFutAndNotConfirmedDelByUserByDateTimeStartDesc(String email) {
         LocalDateTime localDateTime = LocalDateTime.now();
 
         return delegationRepository.findAllByUserEmailOrderByDateTimeStartDesc(email)
                 .stream()
                 .filter(del -> del.getDateTimeStop().isAfter(localDateTime))
+                .filter(del -> !del.isConfirmed())
                 .collect(Collectors.toList());
     }
 
-    public ResponseEntity<Delegation> addDelegation(String email, Delegation delegation){
+    public List<Delegation> getAllDelByUserByConfirmation(String email, boolean isConfirmed) {
+        return delegationRepository.findAllByUserEmailAndConfirmed(email, isConfirmed);
+    }
+
+    public List<Delegation> getAllNotRequestedDelByUserByConfirmation(String email, boolean isConfirmed) {
+        return delegationRepository.findAllByUserEmailAndRequestStatus(email, null)
+                .stream()
+                .filter(del -> del.isConfirmed() == isConfirmed)
+                .collect(Collectors.toList());
+    }
+
+    public List<Delegation> getAllRequestedDelByStatus(Boolean status) {
+        return delegationRepository.findAllByRequestStatus(status);
+    }
+
+    public ResponseEntity<Delegation> requestByStatus(Long delegationId, Boolean status) {
+        Optional<Delegation> del = delegationRepository.findById(delegationId);
+
+        if(del.isPresent()) {
+            Delegation delegation = del.get();
+            try {
+                delegation.setRequestStatus(status);
+                delegation = delegationRepository.save(delegation);
+            }
+            catch(Exception e) {
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
+            return new ResponseEntity<>(delegation, HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    public ResponseEntity<Delegation> answerRequestById(Long delegationId) {
+        Optional<Delegation> del = delegationRepository.findById(delegationId);
+
+        if(del.isPresent()) {
+            Delegation delegation = del.get();
+            try {
+                Boolean status = delegation.getRequestStatus();
+                delegation.setConfirmed(status);
+                delegation.setRequestStatus(null);
+
+                delegation = delegationRepository.save(delegation);
+            }
+            catch(Exception e) {
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
+            return new ResponseEntity<>(delegation, HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    public ResponseEntity<Delegation> addDelegation(String email, Delegation delegation) {
         Optional<User> user = userRepository.findByEmail(email);
 
         if(user.isPresent()) {
@@ -62,6 +119,9 @@ public class DelegationService {
                         delegation.setDistance(null);
                     }
                     delegation.setUser(user.get());
+                    delegation.setConfirmed(false);
+                    delegation.setRequestStatus(null);
+
                     delegation = delegationRepository.save(delegation);
                 }
                 catch (Exception e) {
@@ -78,7 +138,7 @@ public class DelegationService {
         }
     }
 
-    public ResponseEntity<Delegation> changeDelegation(Long delegationId, Delegation del){
+    public ResponseEntity<Delegation> changeDelegation(Long delegationId, Delegation del) {
         Optional<Delegation> thisDelegation = delegationRepository.findById(delegationId);
 
         if(thisDelegation.isPresent()) {
@@ -117,7 +177,7 @@ public class DelegationService {
         }
     }
 
-    public ResponseEntity<Boolean> removeDelegation(Long delegationId){
+    public ResponseEntity<Boolean> removeDelegation(Long delegationId) {
         Optional<Delegation> delegation = delegationRepository.findById(delegationId);
 
         if(delegation.isPresent()) {
