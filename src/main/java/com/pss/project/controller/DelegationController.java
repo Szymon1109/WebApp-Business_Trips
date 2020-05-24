@@ -40,8 +40,39 @@ public class DelegationController {
 
     @GetMapping("/futureByUser")
     @ResponseBody
-    public List<Delegation> getAllFutureByUserInOrder(@RequestParam("email") String email){
-        return delegationService.getAllFutDelByUserByDateTimeStartDesc(email);
+    public List<Delegation> getAllFutureAndNotConfirmedByUserInOrder(@RequestParam("email") String email){
+        return delegationService.getAllFutAndNotConfirmedDelByUserByDateTimeStartDesc(email);
+    }
+
+    @GetMapping("/allByUserAndConfirmation")
+    @ResponseBody
+    public List<Delegation> getAllByUserAndConfirmation(@RequestParam("email") String email,
+                                                        @RequestParam("isConfirmed") boolean isConfirmed){
+        return delegationService.getAllDelByUserByConfirmation(email, isConfirmed);
+    }
+
+    @GetMapping("/allNotRequestedByUserAndConfirmation")
+    @ResponseBody
+    public List<Delegation> getAllNotRequestedByUserAndConfirmation(@RequestParam("email") String email,
+                                                                    @RequestParam("isConfirmed") boolean isConfirmed){
+        return delegationService.getAllNotRequestedDelByUserByConfirmation(email, isConfirmed);
+    }
+
+    @GetMapping("/allByStatus")
+    @ResponseBody
+    public List<Delegation> getAllByRequestStatus(@RequestParam("status") Boolean status){
+        return delegationService.getAllDelByRequestStatus(status);
+    }
+
+    @PutMapping("/requestByStatus")
+    public ResponseEntity<Delegation> requestByStatus(@RequestParam("id") Long id,
+                                                      @RequestBody Boolean status){
+        return delegationService.requestByStatus(id, status);
+    }
+
+    @PutMapping("/answerRequestById")
+    public ResponseEntity<Delegation> answerRequestById(@RequestParam("id") Long id){
+        return delegationService.answerRequestById(id);
     }
 
     @PostMapping("/add")

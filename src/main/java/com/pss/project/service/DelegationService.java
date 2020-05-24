@@ -60,7 +60,7 @@ public class DelegationService {
                 .collect(Collectors.toList());
     }
 
-    public List<Delegation> getAllRequestedDelByStatus(Boolean status) {
+    public List<Delegation> getAllDelByRequestStatus(Boolean status) {
         return delegationRepository.findAllByRequestStatus(status);
     }
 
