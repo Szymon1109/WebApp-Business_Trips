@@ -21,9 +21,9 @@ export class RequestConfirmationPanelComponent implements OnInit {
   chosenDel: string;
 
   constructor(private delegationService: DelegationService) {
-    this.welcomeText = "Choose delegation to remove it...";
-    this.errorText = "Given delegation cannot be removed!";
-    this.successText = "Given delegation has been removed!";
+    this.welcomeText = "Choose not confirmed delegation to request confirmation...";
+    this.errorText = "Given confirmation cannot be requested!";
+    this.successText = "Given confirmation has been requested!";
     this.message = this.welcomeText;
 
     this.chosenId = "";
@@ -36,17 +36,16 @@ export class RequestConfirmationPanelComponent implements OnInit {
   }
 
   loadDelegations() {
-    //TODO:
-    /*this.delegationService.findFutureByEmail().subscribe(
+    this.delegationService.findNotRequestedByEmailAndConfirmation(false).subscribe(
       data => {
         this.delegations = data;
-      });*/
+      });
   }
 
-  delete() {
+  request() {
     if(this.chosenId != null && this.chosenId != "" && this.chosenId != undefined) {
 
-      this.delegationService.deleteDelegation(this.chosenId).subscribe(() => {
+      this.delegationService.requestByStatus(this.chosenId, true).subscribe(() => {
           this.message = '.';
           setTimeout(() => this.message = this.successText, 30);
 

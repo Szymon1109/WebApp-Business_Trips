@@ -28,6 +28,19 @@ export class DelegationService {
     return this.http.get<Delegation[]>(this.delegationUrl + "/allByUserAndConfirmation", {headers: this.headers, params: params});
   }
 
+  public findNotRequestedByEmailAndConfirmation(isConfirmed: boolean): Observable<Delegation[]> {
+    this.headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': this.authService.getBasicAuthToken()
+    });
+    let email = this.authService.getEmailLogged();
+    let params = new HttpParams()
+      .set("email", email.toString())
+      .set("isConfirmed", isConfirmed.toString());
+
+    return this.http.get<Delegation[]>(this.delegationUrl + "/allNotRequestedByUserAndConfirmation", {headers: this.headers, params: params});
+  }
+
   public findFutureByEmail(): Observable<Delegation[]> {
     this.headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -37,6 +50,17 @@ export class DelegationService {
     let params = new HttpParams().set("email", email.toString());
 
     return this.http.get<Delegation[]>(this.delegationUrl + "/futureByUser", {headers: this.headers, params: params});
+  }
+
+  public requestByStatus(id: string, status: Boolean) {
+    this.headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': this.authService.getBasicAuthToken()
+    });
+    let params = new HttpParams()
+      .set("id", id);
+
+    return this.http.put<Delegation>(this.delegationUrl + "/requestByStatus", status, {headers: this.headers, params: params});
   }
 
   public addDelegation(delegation: Delegation) {
