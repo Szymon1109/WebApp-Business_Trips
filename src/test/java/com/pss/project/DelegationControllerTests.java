@@ -66,17 +66,17 @@ public class DelegationControllerTests {
         delegation1 = new Delegation(1L, "Szkolenie w Warszawie", user1,
                 LocalDateTime.parse("2020-03-20T05:01:00.751660"), LocalDateTime.parse("2020-03-21T15:01:00.752677"),
                 30, 2, 2, 1, Transport.CAR, null, AutoCapacity.MEDIUM,
-                600, 100, 0, null, 0);
+                600, 100, 0, null, 0, false, null);
 
         delegation2 = new Delegation(2L, "Kurs nauczania", user1,
                 LocalDateTime.parse("2020-03-19T15:01:00.752677"), LocalDateTime.parse("2020-03-21T15:01:00.752677"),
                 30, 2, 2, 2, Transport.CAR, null, AutoCapacity.HIGH,
-                200, 50, 0, null, 0);
+                200, 50, 0, null, 0, false, null);
 
         delegation3 = new Delegation(3L, "Spotkanie z klientem", user3,
                 LocalDateTime.parse("2020-03-20T10:01:00.752677"), LocalDateTime.parse("2020-03-20T20:01:00.752677"),
                 30, 0, 0, 0, Transport.TRAIN, 58, null,
-                null, 80, 12, null, 0);
+                null, 80, 12, null, 0, false, null);
 
         newDelegation = new Delegation("Spotkanie", user1, LocalDateTime.now(), LocalDateTime.now(),
                 Transport.TRAIN, 49, null, null, 50, 8, null, 0);

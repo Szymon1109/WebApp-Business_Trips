@@ -55,7 +55,7 @@ public class Delegation {
     @Min(0)
     private Integer otherOutlayPrice;
 
-    private boolean isConfirmed = false;
+    private boolean confirmed = false;
     private Boolean requestStatus = null;
 
     public Delegation(String description, User user, LocalDateTime dateTimeStart,
@@ -66,30 +66,6 @@ public class Delegation {
         this.user = user;
         this.dateTimeStart = dateTimeStart;
         this.dateTimeStop = dateTimeStop;
-        this.transport = transport;
-        this.ticketPrice = ticketPrice;
-        this.autoCapacity = autoCapacity;
-        this.distance = distance;
-        this.accommodationPrice = accommodationPrice;
-        this.otherTicketsPrice = otherTicketsPrice;
-        this.otherOutlayDesc = otherOutlayDesc;
-        this.otherOutlayPrice = otherOutlayPrice;
-    }
-
-    public Delegation(Long id, String description, User user, LocalDateTime dateTimeStart,
-                      LocalDateTime dateTimeStop, Integer travelDietAmount, Integer breakfastNumber,
-                      Integer dinnerNumber, Integer supperNumber, Transport transport, Integer ticketPrice,
-                      AutoCapacity autoCapacity, Integer distance, Integer accommodationPrice,
-                      Integer otherTicketsPrice, String otherOutlayDesc, Integer otherOutlayPrice) {
-        this.id = id;
-        this.description = description;
-        this.user = user;
-        this.dateTimeStart = dateTimeStart;
-        this.dateTimeStop = dateTimeStop;
-        this.travelDietAmount = travelDietAmount;
-        this.breakfastNumber = breakfastNumber;
-        this.dinnerNumber = dinnerNumber;
-        this.supperNumber = supperNumber;
         this.transport = transport;
         this.ticketPrice = ticketPrice;
         this.autoCapacity = autoCapacity;

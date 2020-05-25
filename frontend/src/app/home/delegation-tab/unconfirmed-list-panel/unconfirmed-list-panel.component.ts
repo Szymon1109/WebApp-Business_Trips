@@ -24,11 +24,10 @@ export class UnconfirmedListPanelComponent implements OnInit {
   }
 
   loadDelegations() {
-    //TODO:
-    /*this.delegationService.findByEmail().subscribe(
+    this.delegationService.findByEmailAndConfirmation(false).subscribe(
       data => {
         this.delegations = this.editData(data);
-      })*/
+      })
   }
 
   editData(array: Array<Delegation>): Array<Delegation> {

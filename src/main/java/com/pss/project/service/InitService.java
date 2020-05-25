@@ -21,7 +21,7 @@ import java.util.Set;
 
 @Service
 public class InitService {
-
+/*
     private UserRepository userRepository;
     private DelegationRepository delegationRepository;
     private RoleRepository roleRepository;
@@ -54,7 +54,7 @@ public class InitService {
 
         User u1 = new User("Alicja", "Nowak", "anianow@wp.pl",
                 passwordEncoder.encode("Pa$$word1"), "UTP", "Bydgoszcz, ul. Kaliskiego",
-                "1234567890", userSet);
+                "1234567890", adminSet);
 
         User u2 = new User("Piotr", "Kowalski", "piotr.kowalski@gmail.com",
                 passwordEncoder.encode("Pa$$word1"), "VI LO", "Bydgoszcz, ul. Staszica",
@@ -62,26 +62,32 @@ public class InitService {
 
         User u3 = new User(0L, "Julia", "Zielińska", "julia@ziel.pl",
                 passwordEncoder.encode("Pa$$word1"), "Google", "U.S. Dolina Krzemowa",
-                "1122334455", true, LocalDate.now().minusDays(2), adminSet);
+                "1122334455", true, LocalDate.now().minusDays(2), userSet);
 
         u1 = userRepository.save(u1);
         u2 = userRepository.save(u2);
         u3 = userRepository.save(u3);
 
-        Delegation d1 = new Delegation(0L, "Szkolenie w Warszawie", u1,
-                LocalDateTime.now().minusHours(10), LocalDateTime.now().plusDays(1),
-                30, 2, 2, 1, Transport.CAR, null, AutoCapacity.MEDIUM,
-                600, 100, 0, null, 0);
-
-        Delegation d2 = new Delegation(0L, "Kurs nauczania", u1,
-                LocalDateTime.now().minusDays(1), LocalDateTime.now().plusDays(1),
-                30, 2, 2, 2, Transport.CAR, null, AutoCapacity.HIGH,
-                200, 50, 0, null, 0);
-
-        Delegation d3 = new Delegation("Spotkanie z klientem", u3,
+        Delegation d1 = new Delegation("Spotkanie z klientem", u2,
                 LocalDateTime.now().minusHours(5), LocalDateTime.now().plusHours(5),
-                Transport.TRAIN, 58, null, null, 80, 12, null, 0);
+                Transport.TRAIN, 58, null, null,
+                80, 12, null, 0);
+
+        Delegation d2 = new Delegation(0L, "Kurs nauczania", u3,
+                LocalDateTime.now().minusDays(1), LocalDateTime.now().plusDays(1),
+                30, 2, 2, 2,
+                Transport.CAR, null, AutoCapacity.HIGH, 200,
+                50, 0, null,
+                0, true, null);
+
+        Delegation d3 = new Delegation(0L, "Szkolenie w Warszawie", u3,
+                LocalDateTime.now().minusHours(10), LocalDateTime.now().plusDays(1),
+                30, 2, 2, 1,
+                Transport.CAR, null, AutoCapacity.MEDIUM, 600,
+                100, 0, null,
+                0, false, true);
 
         delegationRepository.saveAll(Arrays.asList(d1, d2, d3));
     }
+*/
 }
