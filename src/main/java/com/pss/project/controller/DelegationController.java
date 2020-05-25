@@ -71,7 +71,7 @@ public class DelegationController {
     }
 
     @PutMapping("/admin/answerRequestById")
-    public ResponseEntity<Delegation> answerRequestById(@RequestParam("id") Long id) {
+    public ResponseEntity<Delegation> answerRequestById(@RequestBody Long id) {
         return delegationService.answerRequestById(id);
     }
 

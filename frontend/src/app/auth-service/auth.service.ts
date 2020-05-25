@@ -10,8 +10,8 @@ export class AuthService {
   USER_PASSWORD = 'password';
   SOCIAL_LOGIN = 'socialLogin';
 
-  private socialEmail = "julia@ziel.pl";
-  private socialPassword = "Pa$$word1";
+  private socialEmail = "admin";
+  private socialPassword = "admin";
 
   constructor(private http: HttpClient,
               private socialAuthService: SocialAuthService) {

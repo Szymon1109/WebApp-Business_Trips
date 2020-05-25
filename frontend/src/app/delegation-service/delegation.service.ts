@@ -41,6 +41,16 @@ export class DelegationService {
     return this.http.get<Delegation[]>(this.delegationUrl + "/allNotRequestedByUserAndConfirmation", {headers: this.headers, params: params});
   }
 
+  public findRequestedByEmailAndConfirmation(status: boolean): Observable<Delegation[]> {
+    this.headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': this.authService.getBasicAuthToken()
+    });
+    let params = new HttpParams().set("status", status.toString());
+
+    return this.http.get<Delegation[]>(this.delegationUrl + "/admin/allByStatus", {headers: this.headers, params: params});
+  }
+
   public findFutureByEmail(): Observable<Delegation[]> {
     this.headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -52,15 +62,23 @@ export class DelegationService {
     return this.http.get<Delegation[]>(this.delegationUrl + "/futureByUser", {headers: this.headers, params: params});
   }
 
-  public requestByStatus(id: string, status: Boolean) {
+  public requestByStatus(id: string, status: boolean) {
     this.headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': this.authService.getBasicAuthToken()
     });
-    let params = new HttpParams()
-      .set("id", id);
+    let params = new HttpParams().set("id", id);
 
     return this.http.put<Delegation>(this.delegationUrl + "/requestByStatus", status, {headers: this.headers, params: params});
+  }
+
+  public answerRequest(id: string) {
+    this.headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': this.authService.getBasicAuthToken()
+    });
+
+    return this.http.put<Delegation>(this.delegationUrl + "/admin/answerRequestById", id, {headers: this.headers});
   }
 
   public addDelegation(delegation: Delegation) {
@@ -79,8 +97,7 @@ export class DelegationService {
       'Content-Type': 'application/json',
       'Authorization': this.authService.getBasicAuthToken()
     });
-    let params = new HttpParams()
-      .set("id", id);
+    let params = new HttpParams().set("id", id);
 
     return this.http.put<Delegation>(this.delegationUrl + "/change", delegation, {headers: this.headers, params: params});
   }
@@ -90,8 +107,7 @@ export class DelegationService {
       'Content-Type': 'application/json',
       'Authorization': this.authService.getBasicAuthToken()
     });
-    let params = new HttpParams()
-      .set("id", id);
+    let params = new HttpParams().set("id", id);
 
     return this.http.delete(this.delegationUrl + "/delete", {headers: this.headers, params: params});
   }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {Delegation} from "../../../model/delegation";
-import {DelegationService} from "../../../delegation-service/delegation.service";
+import {User} from "../../../model/user";
+import {UserService} from "../../../user-service/user.service";
 
 @Component({
   selector: 'app-user-admin-panel',
@@ -14,46 +14,47 @@ export class UserAdminPanelComponent implements OnInit {
   errorText: string;
   successText: string;
 
-  delegations: Array<Delegation>;
-  delegation: Delegation;
-  description: string;
-  chosenId: string;
-  chosenDel: string;
+  users: Array<User>;
+  user: User;
+  name: string;
+  lastName: string;
+  chosenEmail: string;
+  chosenUser: string;
 
-  constructor(private delegationService: DelegationService) {
-    this.welcomeText = "Choose delegation to remove it...";
-    this.errorText = "Given delegation cannot be removed!";
-    this.successText = "Given delegation has been removed!";
+  constructor(private userService: UserService) {
+    this.welcomeText = "Choose user to make it admin...";
+    this.errorText = "Given user cannot be made admin!";
+    this.successText = "Given user has been made admin!";
     this.message = this.welcomeText;
 
-    this.chosenId = "";
-    this.chosenDel = "";
+    this.chosenEmail = "";
+    this.chosenUser = "";
 
-    this.loadDelegations();
+    this.loadUsers();
   }
 
   ngOnInit() {
   }
 
-  loadDelegations() {
-    //TODO:
-    /*this.delegationService.findFutureByEmail().subscribe(
+  loadUsers() {
+    this.userService.findAllNotAdmins().subscribe(
       data => {
-        this.delegations = data;
-      });*/
+        this.users = data;
+      });
   }
 
-  delete() {
-    if(this.chosenId != null && this.chosenId != "" && this.chosenId != undefined) {
+  makeAdmin() {
+    if(this.chosenEmail != null && this.chosenEmail != "" && this.chosenEmail != undefined) {
 
-      this.delegationService.deleteDelegation(this.chosenId).subscribe(() => {
+      this.userService.makeAdmin(this.chosenEmail).subscribe(() => {
           this.message = '.';
           setTimeout(() => this.message = this.successText, 30);
 
-          this.chosenId = "";
-          this.chosenDel = "";
-          this.description = "";
-          this.loadDelegations();
+          this.chosenEmail = "";
+          this.chosenUser = "";
+          this.name = "";
+          this.lastName = "";
+          this.loadUsers();
         },
         () => {
           this.message = '.';
@@ -67,13 +68,15 @@ export class UserAdminPanelComponent implements OnInit {
   }
 
   onChange(event) {
-    this.chosenId = event.id;
+    this.chosenEmail = event.email;
 
     if (event == "") {
-      this.description = "";
+      this.name = "";
+      this.lastName = "";
     }
     else {
-      this.description = event.description;
+      this.name = event.name;
+      this.lastName = event.lastName;
     }
   }
 }

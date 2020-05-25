@@ -73,7 +73,7 @@ public class UserController {
     }
 
     @PutMapping("/admin/makeAdmin")
-    public ResponseEntity<User> makeAdmin(@RequestParam("email") String email) {
+    public ResponseEntity<User> makeAdmin(@RequestBody String email) {
         return userService.makeUserAdmin(email);
     }
 

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {Delegation} from "../../../model/delegation";
-import {DelegationService} from "../../../delegation-service/delegation.service";
+import {User} from "../../../model/user";
+import {UserService} from "../../../user-service/user.service";
 
 @Component({
   selector: 'app-remove-user-panel',
@@ -14,46 +14,47 @@ export class RemoveUserPanelComponent implements OnInit {
   errorText: string;
   successText: string;
 
-  delegations: Array<Delegation>;
-  delegation: Delegation;
-  description: string;
+  users: Array<User>;
+  user: User;
+  name: string;
+  lastName: string;
   chosenId: string;
-  chosenDel: string;
+  chosenUser: string;
 
-  constructor(private delegationService: DelegationService) {
-    this.welcomeText = "Choose delegation to remove it...";
-    this.errorText = "Given delegation cannot be removed!";
-    this.successText = "Given delegation has been removed!";
+  constructor(private userService: UserService) {
+    this.welcomeText = "Choose user to remove it...";
+    this.errorText = "Given user cannot be made removed!";
+    this.successText = "Given user has been removed!";
     this.message = this.welcomeText;
 
     this.chosenId = "";
-    this.chosenDel = "";
+    this.chosenUser = "";
 
-    this.loadDelegations();
+    this.loadUsers();
   }
 
   ngOnInit() {
   }
 
-  loadDelegations() {
-    //TODO:
-    /*this.delegationService.findFutureByEmail().subscribe(
+  loadUsers() {
+    this.userService.findAllUsers().subscribe(
       data => {
-        this.delegations = data;
-      });*/
+        this.users = data;
+      });
   }
 
   delete() {
     if(this.chosenId != null && this.chosenId != "" && this.chosenId != undefined) {
 
-      this.delegationService.deleteDelegation(this.chosenId).subscribe(() => {
+      this.userService.delete(this.chosenId).subscribe(() => {
           this.message = '.';
           setTimeout(() => this.message = this.successText, 30);
 
           this.chosenId = "";
-          this.chosenDel = "";
-          this.description = "";
-          this.loadDelegations();
+          this.chosenUser = "";
+          this.name = "";
+          this.lastName = "";
+          this.loadUsers();
         },
         () => {
           this.message = '.';
@@ -70,10 +71,12 @@ export class RemoveUserPanelComponent implements OnInit {
     this.chosenId = event.id;
 
     if (event == "") {
-      this.description = "";
+      this.name = "";
+      this.lastName = "";
     }
     else {
-      this.description = event.description;
+      this.name = event.name;
+      this.lastName = event.lastName;
     }
   }
 }

@@ -7,4 +7,10 @@
 
 .form-del {
   margin-left: 110px;
+  width: 200px;
+}
+
+.reg_btn{
+  width: 140px;
+  margin-left: 0;
 }

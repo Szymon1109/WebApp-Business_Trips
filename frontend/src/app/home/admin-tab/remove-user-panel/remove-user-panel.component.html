@@ -6,23 +6,21 @@
         <div class="form-row message">
           <div class="form-group text-center form-space">
             <label>
-              <textarea class="form-control form-name" rows="1" placeholder="first name" [(ngModel)]="description" name="name" [disabled]="true"></textarea>
+              <textarea class="form-control form-name" rows="1" placeholder="first name" [(ngModel)]="name" name="name" [disabled]="true"></textarea>
             </label>
             <label>
-              <textarea class="form-control form-name" rows="1" placeholder="surname" [(ngModel)]="description" name="lastName" [disabled]="true"></textarea>
+              <textarea class="form-control form-name" rows="1" placeholder="surname" [(ngModel)]="lastName" name="lastName" [disabled]="true"></textarea>
             </label>
           </div>
         </div>
         <div class="form-row">
           <div class="form-group text-center form-del">
             <label>
-              <select class="browser-default custom-select" name="chosenDel" [(ngModel)]="chosenDel" (ngModelChange)="onChange($event)">
-                <option value="">delegation</option>
-                <option *ngFor="let del of delegations" [ngValue]="del">
+              <select class="browser-default custom-select" name="chosenDel" [(ngModel)]="chosenUser" (ngModelChange)="onChange($event)">
+                <option value="">user</option>
+                <option *ngFor="let user of users" [ngValue]="user">
                   {{
-                  "(" + del.id + ") " + del.dateTimeStart
-                    .replace("T", " ")
-                    .substr(0,16)
+                  "(" + user.id + ") " + user.email
                   }}
                 </option>
               </select>

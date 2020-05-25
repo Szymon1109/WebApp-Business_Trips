@@ -21,9 +21,9 @@ export class UnconfirmationRequestPanelComponent implements OnInit {
   chosenDel: string;
 
   constructor(private delegationService: DelegationService) {
-    this.welcomeText = "Choose delegation to remove it...";
-    this.errorText = "Given delegation cannot be removed!";
-    this.successText = "Given delegation has been removed!";
+    this.welcomeText = "Choose unconfirmation request to unconfirm delegation...";
+    this.errorText = "Given delegation cannot be unconfirmed!";
+    this.successText = "Given delegation has been unconfirmed!";
     this.message = this.welcomeText;
 
     this.chosenId = "";
@@ -36,17 +36,16 @@ export class UnconfirmationRequestPanelComponent implements OnInit {
   }
 
   loadDelegations() {
-    //TODO:
-    /*this.delegationService.findFutureByEmail().subscribe(
+    this.delegationService.findRequestedByEmailAndConfirmation(false).subscribe(
       data => {
         this.delegations = data;
-      });*/
+      });
   }
 
-  delete() {
+  unconfirm() {
     if (this.chosenId != null && this.chosenId != "" && this.chosenId != undefined) {
 
-      this.delegationService.deleteDelegation(this.chosenId).subscribe(() => {
+      this.delegationService.answerRequest(this.chosenId).subscribe(() => {
           this.message = '.';
           setTimeout(() => this.message = this.successText, 30);
 
