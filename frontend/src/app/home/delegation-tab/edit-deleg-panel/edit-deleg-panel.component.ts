@@ -109,7 +109,7 @@ export class EditDelegPanelComponent implements OnInit {
           this.dateStop.replace(" ", "T"), this.travelDiet, this.breakfasts, this.dinners,
           this.suppers, this.transport.toUpperCase(), this.ticketPrice == "-" ? "0" : this.ticketPrice,
           this.autoCapacity.toUpperCase(), this.distance == "-" ? "0" : this.distance, this.accPrice,
-          this.othTicketsPrice, this.othOutlayDesc, this.othOutlayPrice);
+          this.othTicketsPrice, this.othOutlayDesc == "-" ? null : this.othOutlayDesc, this.othOutlayPrice);
 
         this.delegationService.editDelegation(this.chosenId, this.delegation).subscribe(() => {
             this.message = '.';
@@ -193,7 +193,7 @@ export class EditDelegPanelComponent implements OnInit {
       this.accPrice = event.accommodationPrice;
       this.othTicketsPrice = event.otherTicketsPrice.toString();
       this.othOutlayPrice = event.otherOutlayPrice.toString();
-      this.othOutlayDesc = event.otherOutlayDesc;
+      this.othOutlayDesc = event.otherOutlayDesc == null ? "-" : this.othOutlayDesc;
 
       if(this.transport == "car") {
         this.disableTicket = true;

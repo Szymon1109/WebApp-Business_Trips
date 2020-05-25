@@ -146,16 +146,16 @@ public class DelegationService {
                 Delegation oldDel = thisDelegation.get();
                 Delegation newDel;
                 try {
-                    newDel = new Delegation(oldDel.getId(), oldDel.getDescription(), oldDel.getUser(),
-                            oldDel.getDateTimeStart(), oldDel.getDateTimeStop(),
-                            oldDel.getTravelDietAmount(), oldDel.getBreakfastNumber(),
-                            oldDel.getDinnerNumber(), oldDel.getSupperNumber(), oldDel.getTransport(),
-                            oldDel.getTransport().equals(Transport.CAR) ? null : oldDel.getTicketPrice(),
-                            !oldDel.getTransport().equals(Transport.CAR) ? null : oldDel.getAutoCapacity(),
-                            !del.getTransport().equals(Transport.CAR) ? null : oldDel.getDistance(),
-                            oldDel.getAccommodationPrice(), oldDel.getOtherTicketsPrice(),
-                            oldDel.getOtherOutlayDesc(), oldDel.getOtherOutlayPrice(),
-                            oldDel.isConfirmed(), oldDel.getRequestStatus());
+                    newDel = new Delegation(oldDel.getId(), del.getDescription(), oldDel.getUser(),
+                            del.getDateTimeStart(), del.getDateTimeStop(),
+                            del.getTravelDietAmount(), del.getBreakfastNumber(),
+                            del.getDinnerNumber(), del.getSupperNumber(), del.getTransport(),
+                            del.getTransport().equals(Transport.CAR) ? null : del.getTicketPrice(),
+                            !del.getTransport().equals(Transport.CAR) ? null : del.getAutoCapacity(),
+                            !del.getTransport().equals(Transport.CAR) ? null : del.getDistance(),
+                            del.getAccommodationPrice(), del.getOtherTicketsPrice(),
+                            del.getOtherOutlayDesc(), del.getOtherOutlayPrice(),
+                            del.isConfirmed(), del.getRequestStatus());
 
                     newDel = delegationRepository.save(newDel);
                 }

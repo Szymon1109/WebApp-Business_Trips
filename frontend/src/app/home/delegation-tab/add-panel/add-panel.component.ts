@@ -77,7 +77,7 @@ export class AddPanelComponent implements OnInit {
           this.dateStop.replace(" ", "T"), this.travelDiet, this.breakfasts, this.dinners,
           this.suppers, this.transport.toUpperCase(), this.ticketPrice == "-" ? "0" : this.ticketPrice,
           this.autoCapacity.toUpperCase(), this.distance == "-" ? "0" : this.distance, this.accPrice,
-          this.othTicketsPrice, this.othOutlayDesc, this.othOutlayPrice);
+          this.othTicketsPrice, this.othOutlayDesc == "-" ? null : this.othOutlayDesc, this.othOutlayPrice);
 
         this.delegationService.addDelegation(this.delegation).subscribe(() => {
           this.message = '.';
