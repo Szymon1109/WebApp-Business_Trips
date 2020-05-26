@@ -101,9 +101,9 @@
           </div>
         </div>
         <div class="form-row">
-          <div class="form-group text-center form-del">
+          <div class="form-group text-center">
             <label>
-              <select name="chosenDel" [(ngModel)]="chosenDel" (ngModelChange)="onChangeDel($event)" class="browser-default custom-select">
+              <select class="browser-default custom-select form-del" name="chosenDel" [(ngModel)]="chosenDel" (ngModelChange)="onChangeDel($event)">
                 <option value="">delegation</option>
                 <option *ngFor="let del of delegations" [ngValue]="del">
                   {{

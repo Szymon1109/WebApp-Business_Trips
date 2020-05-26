@@ -101,9 +101,9 @@
           </div>
         </div>
         <div class="form-row">
-          <div class="form-group text-center form-user">
+          <div class="form-group text-center">
             <label>
-              <select class="browser-default custom-select" name="chosenUser" [(ngModel)]="chosenUser" (ngModelChange)="onChangeUser($event)">
+              <select class="browser-default custom-select form-user" name="chosenUser" [(ngModel)]="chosenUser" (ngModelChange)="onChangeUser($event)">
                 <option value="">user</option>
                 <option *ngFor="let user of users" [ngValue]="user">
                   {{
@@ -113,9 +113,9 @@
               </select>
             </label>
           </div>
-          <div class="form-group text-center form-del">
+          <div class="form-group text-center">
             <label>
-              <select class="browser-default custom-select" name="chosenDel" [(ngModel)]="chosenDel" (ngModelChange)="onChangeDel($event)">
+              <select class="browser-default custom-select form-del" name="chosenDel" [(ngModel)]="chosenDel" (ngModelChange)="onChangeDel($event)">
                 <option value="">delegation</option>
                 <option *ngFor="let del of delegations" [ngValue]="del">
                   {{

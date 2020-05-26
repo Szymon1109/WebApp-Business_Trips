@@ -55,6 +55,7 @@ export class EditDelegationPanelComponent implements OnInit {
     this.successText = "Given delegation has been saved!";
     this.message = this.welcomeText;
 
+    this.chosenUser = "";
     this.clearData();
     this.loadUsers();
   }
@@ -64,7 +65,6 @@ export class EditDelegationPanelComponent implements OnInit {
   }
 
   clearData() {
-    this.chosenUser = "";
     this.chosenId = "";
     this.chosenDel = "";
 
@@ -132,6 +132,7 @@ export class EditDelegationPanelComponent implements OnInit {
             this.message = '.';
             setTimeout(() => this.message = this.successText, 30);
 
+            this.chosenUser = "";
             this.loadUsers();
             this.onChangeUser("");
           },
