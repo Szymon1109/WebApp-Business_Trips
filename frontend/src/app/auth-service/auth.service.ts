@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {map} from "rxjs/operators";
-import {AuthService as SocialAuthService} from "ng4-social-login";
 
 @Injectable()
 export class AuthService {
@@ -13,8 +12,7 @@ export class AuthService {
   private socialEmail = "admin";
   private socialPassword = "admin";
 
-  constructor(private http: HttpClient,
-              private socialAuthService: SocialAuthService) {
+  constructor(private http: HttpClient) {
   }
 
   authenticationService(email: string, password: string) {
@@ -73,6 +71,5 @@ export class AuthService {
     sessionStorage.removeItem(this.USER_EMAIL);
     sessionStorage.removeItem(this.USER_PASSWORD);
     sessionStorage.removeItem(this.SOCIAL_LOGIN);
-    this.socialAuthService.signOut();
   }
 }
