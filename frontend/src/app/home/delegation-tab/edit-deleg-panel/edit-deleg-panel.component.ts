@@ -48,26 +48,18 @@ export class EditDelegPanelComponent implements OnInit {
     this.successText = "Given delegation has been saved!";
     this.message = this.welcomeText;
 
-    this.disableTicket = false;
-    this.disableAuto = false;
-    this.transport = "";
-    this.autoCapacity = "";
-    this.chosenDel = "";
-
+    this.clearData();
     this.loadDelegations();
   }
 
   ngOnInit() {
-  }
 
-  loadDelegations() {
-    this.delegationService.findFutureByEmail().subscribe(
-      data => {
-        this.delegations = data;
-      });
   }
 
   clearData() {
+    this.chosenId = "";
+    this.chosenDel = "";
+
     this.description = "";
     this.dateStart = "";
     this.dateStop = "";
@@ -83,24 +75,34 @@ export class EditDelegPanelComponent implements OnInit {
     this.othTicketsPrice = "";
     this.othOutlayPrice = "";
     this.othOutlayDesc = "";
+
+    this.disableTicket = false;
+    this.disableAuto = false;
+  }
+
+  loadDelegations() {
+    this.delegationService.findFutureByEmail().subscribe(
+      data => {
+        this.delegations = data;
+      });
   }
 
   edit() {
     if(this.chosenId != null && this.chosenId != "" && this.chosenId != undefined
-    && this.description != null && this.description != ""
-    && this.dateStart != null && this.dateStop != ""
-    && this.travelDiet != null && this.travelDiet != ""
-    && this.breakfasts != null && this.breakfasts != ""
-    && this.dinners != null && this.dinners != ""
-    && this.suppers != null && this.suppers != ""
-    && this.transport != null && this.transport != "" && this.transport != undefined
-    && this.ticketPrice != null && this.ticketPrice != ""
-    && this.autoCapacity != null && this.autoCapacity != "" && this.autoCapacity != undefined
-    && this.distance != null && this.distance != ""
-    && this.accPrice != null && this.accPrice != ""
-    && this.othTicketsPrice != null && this.othTicketsPrice != ""
-    && this.othOutlayDesc != null && this.othOutlayDesc != ""
-    && this.othOutlayPrice != null && this.othOutlayPrice != "") {
+      && this.description != null && this.description != ""
+      && this.dateStart != null && this.dateStop !== ""
+      && this.travelDiet != null && this.travelDiet !== ""
+      && this.breakfasts != null && this.breakfasts !== ""
+      && this.dinners != null && this.dinners !== ""
+      && this.suppers != null && this.suppers !== ""
+      && this.transport != null && this.transport != "" && this.transport != undefined
+      && this.ticketPrice != null && this.ticketPrice !== ""
+      && this.autoCapacity != null && this.autoCapacity != "" && this.autoCapacity != undefined
+      && this.distance != null && this.distance !== ""
+      && this.accPrice != null && this.accPrice !== ""
+      && this.othTicketsPrice != null && this.othTicketsPrice !== ""
+      && this.othOutlayDesc != null && this.othOutlayDesc != ""
+      && this.othOutlayPrice != null && this.othOutlayPrice !== "") {
 
       let regex = /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$/;
       if(regex.test(this.dateStart) && regex.test(this.dateStop)) {
@@ -115,13 +117,8 @@ export class EditDelegPanelComponent implements OnInit {
             this.message = '.';
             setTimeout(() => this.message = this.successText, 30);
 
-            this.chosenId = "";
-            this.chosenDel = "";
-            this.disableTicket = false;
-            this.disableAuto = false;
-
-            this.clearData();
             this.loadDelegations();
+            this.onChangeDel("");
           },
           error => {
             if(error.status == 400) {
@@ -170,15 +167,12 @@ export class EditDelegPanelComponent implements OnInit {
   }
 
   onChangeDel(event) {
-    this.chosenId = event.id;
-
     if(event == "") {
-      this.disableTicket = false;
-      this.disableAuto = false;
-
       this.clearData();
     }
     else {
+      this.chosenId = event.id;
+
       this.description = event.description;
       this.dateStart = event.dateTimeStart.replace("T", " ").substr(0,16);
       this.dateStop = event.dateTimeStop.replace("T", " ").substr(0,16);

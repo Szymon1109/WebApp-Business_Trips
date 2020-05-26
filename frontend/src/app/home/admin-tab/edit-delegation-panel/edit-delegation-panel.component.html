@@ -103,13 +103,11 @@
         <div class="form-row">
           <div class="form-group text-center form-user">
             <label>
-              <select name="user" [(ngModel)]="chosenDel" (ngModelChange)="onChangeDel($event)" class="browser-default custom-select">
+              <select class="browser-default custom-select" name="chosenUser" [(ngModel)]="chosenUser" (ngModelChange)="onChangeUser($event)">
                 <option value="">user</option>
-                <option *ngFor="let del of delegations" [ngValue]="del">
+                <option *ngFor="let user of users" [ngValue]="user">
                   {{
-                  "(" + del.id + ") " + del.dateTimeStart
-                    .replace("T", " ")
-                    .substr(0,16)
+                  "(" + user.id + ") " + user.email
                   }}
                 </option>
               </select>
@@ -117,7 +115,7 @@
           </div>
           <div class="form-group text-center form-del">
             <label>
-              <select name="chosenDel" [(ngModel)]="chosenDel" (ngModelChange)="onChangeDel($event)" class="browser-default custom-select">
+              <select class="browser-default custom-select" name="chosenDel" [(ngModel)]="chosenDel" (ngModelChange)="onChangeDel($event)">
                 <option value="">delegation</option>
                 <option *ngFor="let del of delegations" [ngValue]="del">
                   {{

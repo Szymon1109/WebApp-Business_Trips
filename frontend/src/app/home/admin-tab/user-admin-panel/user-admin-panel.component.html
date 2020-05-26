@@ -16,7 +16,7 @@
         <div class="form-row">
           <div class="form-group text-center form-del">
             <label>
-              <select class="browser-default custom-select" name="chosenDel" [(ngModel)]="chosenUser" (ngModelChange)="onChange($event)">
+              <select class="browser-default custom-select" name="chosenUser" [(ngModel)]="chosenUser" (ngModelChange)="onChange($event)">
                 <option value="">user</option>
                 <option *ngFor="let user of users" [ngValue]="user">
                   {{

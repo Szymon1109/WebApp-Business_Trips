@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {Delegation} from "../../../model/delegation";
 import {DelegationService} from "../../../delegation-service/delegation.service";
+import {UserService} from "../../../user-service/user.service";
+import {User} from "../../../model/user";
 
 @Component({
   selector: 'app-edit-delegation-panel',
@@ -15,6 +17,9 @@ export class EditDelegationPanelComponent implements OnInit {
   dateCompareText: string;
   errorText: string;
   successText: string;
+
+  users: Array<User>;
+  chosenUser: string;
 
   delegations: Array<Delegation>;
   chosenId: string;
@@ -40,35 +45,29 @@ export class EditDelegationPanelComponent implements OnInit {
   disableTicket: boolean;
   disableAuto: boolean;
 
-  constructor(private delegationService: DelegationService) {
-    this.welcomeText = "Choose delegation and type all data to edit it...";
+  constructor(private userService: UserService,
+              private delegationService: DelegationService) {
+
+    this.welcomeText = "Choose user and delegation and type all data to edit it...";
     this.dateFormatText = "Given date format is not correct!";
     this.dateCompareText = "Stop date must be after start date!";
     this.errorText = "Given data are not correct!";
     this.successText = "Given delegation has been saved!";
     this.message = this.welcomeText;
 
-    this.disableTicket = false;
-    this.disableAuto = false;
-    this.transport = "";
-    this.autoCapacity = "";
-    this.chosenDel = "";
-
-    this.loadDelegations();
+    this.clearData();
+    this.loadUsers();
   }
 
   ngOnInit() {
-  }
 
-  loadDelegations() {
-    //TODO:
-    /*this.delegationService.findFutureByEmail().subscribe(
-      data => {
-        this.delegations = data;
-      });*/
   }
 
   clearData() {
+    this.chosenUser = "";
+    this.chosenId = "";
+    this.chosenDel = "";
+
     this.description = "";
     this.dateStart = "";
     this.dateStop = "";
@@ -84,24 +83,41 @@ export class EditDelegationPanelComponent implements OnInit {
     this.othTicketsPrice = "";
     this.othOutlayPrice = "";
     this.othOutlayDesc = "";
+
+    this.disableTicket = false;
+    this.disableAuto = false;
+  }
+
+  loadUsers() {
+    this.userService.findAllUsers().subscribe(
+      data => {
+        this.users = data;
+      });
+  }
+
+  loadDelegations(email: string) {
+    this.delegationService.findAllByEmail(email).subscribe(
+      data => {
+        this.delegations = data;
+      });
   }
 
   edit() {
     if(this.chosenId != null && this.chosenId != "" && this.chosenId != undefined
       && this.description != null && this.description != ""
-      && this.dateStart != null && this.dateStop != ""
-      && this.travelDiet != null && this.travelDiet != ""
-      && this.breakfasts != null && this.breakfasts != ""
-      && this.dinners != null && this.dinners != ""
-      && this.suppers != null && this.suppers != ""
+      && this.dateStart != null && this.dateStop !== ""
+      && this.travelDiet != null && this.travelDiet !== ""
+      && this.breakfasts != null && this.breakfasts !== ""
+      && this.dinners != null && this.dinners !== ""
+      && this.suppers != null && this.suppers !== ""
       && this.transport != null && this.transport != "" && this.transport != undefined
-      && this.ticketPrice != null && this.ticketPrice != ""
+      && this.ticketPrice != null && this.ticketPrice !== ""
       && this.autoCapacity != null && this.autoCapacity != "" && this.autoCapacity != undefined
-      && this.distance != null && this.distance != ""
-      && this.accPrice != null && this.accPrice != ""
-      && this.othTicketsPrice != null && this.othTicketsPrice != ""
+      && this.distance != null && this.distance !== ""
+      && this.accPrice != null && this.accPrice !== ""
+      && this.othTicketsPrice != null && this.othTicketsPrice !== ""
       && this.othOutlayDesc != null && this.othOutlayDesc != ""
-      && this.othOutlayPrice != null && this.othOutlayPrice != "") {
+      && this.othOutlayPrice != null && this.othOutlayPrice !== "") {
 
       let regex = /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$/;
       if(regex.test(this.dateStart) && regex.test(this.dateStop)) {
@@ -110,19 +126,14 @@ export class EditDelegationPanelComponent implements OnInit {
           this.dateStop.replace(" ", "T"), this.travelDiet, this.breakfasts, this.dinners,
           this.suppers, this.transport.toUpperCase(), this.ticketPrice == "-" ? "0" : this.ticketPrice,
           this.autoCapacity.toUpperCase(), this.distance == "-" ? "0" : this.distance, this.accPrice,
-          this.othTicketsPrice, this.othOutlayDesc, this.othOutlayPrice);
+          this.othTicketsPrice, this.othOutlayDesc == "-" ? null : this.othOutlayDesc, this.othOutlayPrice);
 
         this.delegationService.editDelegation(this.chosenId, this.delegation).subscribe(() => {
             this.message = '.';
             setTimeout(() => this.message = this.successText, 30);
 
-            this.chosenId = "";
-            this.chosenDel = "";
-            this.disableTicket = false;
-            this.disableAuto = false;
-
-            this.clearData();
-            this.loadDelegations();
+            this.loadUsers();
+            this.onChangeUser("");
           },
           error => {
             if(error.status == 400) {
@@ -170,16 +181,25 @@ export class EditDelegationPanelComponent implements OnInit {
     }
   }
 
+  onChangeUser(event) {
+    this.clearData();
+    this.chosenUser = event;
+
+    if (event == "") {
+      this.delegations = null;
+    }
+    else {
+      this.loadDelegations(event.email);
+    }
+  }
+
   onChangeDel(event) {
-    this.chosenId = event.id;
-
     if(event == "") {
-      this.disableTicket = false;
-      this.disableAuto = false;
-
       this.clearData();
     }
     else {
+      this.chosenId = event.id;
+
       this.description = event.description;
       this.dateStart = event.dateTimeStart.replace("T", " ").substr(0,16);
       this.dateStop = event.dateTimeStop.replace("T", " ").substr(0,16);
@@ -194,7 +214,7 @@ export class EditDelegationPanelComponent implements OnInit {
       this.accPrice = event.accommodationPrice;
       this.othTicketsPrice = event.otherTicketsPrice.toString();
       this.othOutlayPrice = event.otherOutlayPrice.toString();
-      this.othOutlayDesc = event.otherOutlayDesc;
+      this.othOutlayDesc = event.otherOutlayDesc == null ? "-" : this.othOutlayDesc;
 
       if(this.transport == "car") {
         this.disableTicket = true;

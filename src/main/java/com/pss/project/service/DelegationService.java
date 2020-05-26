@@ -155,7 +155,7 @@ public class DelegationService {
                             !del.getTransport().equals(Transport.CAR) ? null : del.getDistance(),
                             del.getAccommodationPrice(), del.getOtherTicketsPrice(),
                             del.getOtherOutlayDesc(), del.getOtherOutlayPrice(),
-                            del.isConfirmed(), del.getRequestStatus());
+                            oldDel.isConfirmed(), oldDel.getRequestStatus());
 
                     newDel = delegationRepository.save(newDel);
                 }

@@ -46,6 +46,7 @@ export class RemoveDelegationPanelComponent implements OnInit {
     this.chosenUser = "";
     this.name = "";
     this.lastName = "";
+
     this.chosenId = "";
     this.chosenDel = "";
     this.description = "";
@@ -71,8 +72,8 @@ export class RemoveDelegationPanelComponent implements OnInit {
           this.message = '.';
           setTimeout(() => this.message = this.successText, 30);
 
-          this.clearData();
           this.loadUsers();
+          this.onChangeUser("");
         },
         () => {
           this.message = '.';
@@ -87,6 +88,7 @@ export class RemoveDelegationPanelComponent implements OnInit {
 
   onChangeUser(event) {
     this.clearData();
+    this.chosenUser = event;
 
     if (event == "") {
       this.name = "";
