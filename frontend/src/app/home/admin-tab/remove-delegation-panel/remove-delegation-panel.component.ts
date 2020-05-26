@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {Delegation} from "../../../model/delegation";
 import {DelegationService} from "../../../delegation-service/delegation.service";
+import {UserService} from "../../../user-service/user.service";
+import {User} from "../../../model/user";
 
 @Component({
   selector: 'app-remove-delegation-panel',
@@ -14,46 +16,63 @@ export class RemoveDelegationPanelComponent implements OnInit {
   errorText: string;
   successText: string;
 
+  users: Array<User>;
+  chosenUser: string;
+  name: string;
+  lastName: string;
+
   delegations: Array<Delegation>;
-  delegation: Delegation;
-  description: string;
   chosenId: string;
   chosenDel: string;
+  description: string;
 
-  constructor(private delegationService: DelegationService) {
-    this.welcomeText = "Choose delegation to remove it...";
+  constructor(private userService: UserService,
+              private delegationService: DelegationService) {
+
+    this.welcomeText = "Choose user and delegation to remove it...";
     this.errorText = "Given delegation cannot be removed!";
     this.successText = "Given delegation has been removed!";
     this.message = this.welcomeText;
 
-    this.chosenId = "";
-    this.chosenDel = "";
-
-    this.loadDelegations();
+    this.clearData();
+    this.loadUsers();
   }
 
   ngOnInit() {
+
   }
 
-  loadDelegations() {
-    //TODO:
-    /*this.delegationService.findFutureByEmail().subscribe(
+  clearData() {
+    this.chosenUser = "";
+    this.name = "";
+    this.lastName = "";
+    this.chosenId = "";
+    this.chosenDel = "";
+    this.description = "";
+  }
+
+  loadUsers() {
+    this.userService.findAllUsers().subscribe(
+      data => {
+        this.users = data;
+      });
+  }
+
+  loadDelegations(email: string) {
+    this.delegationService.findAllByEmail(email).subscribe(
       data => {
         this.delegations = data;
-      });*/
+      });
   }
 
   delete() {
     if(this.chosenId != null && this.chosenId != "" && this.chosenId != undefined) {
-
       this.delegationService.deleteDelegation(this.chosenId).subscribe(() => {
           this.message = '.';
           setTimeout(() => this.message = this.successText, 30);
 
-          this.chosenId = "";
-          this.chosenDel = "";
-          this.description = "";
-          this.loadDelegations();
+          this.clearData();
+          this.loadUsers();
         },
         () => {
           this.message = '.';
@@ -66,7 +85,22 @@ export class RemoveDelegationPanelComponent implements OnInit {
     }
   }
 
-  onChange(event) {
+  onChangeUser(event) {
+    this.clearData();
+
+    if (event == "") {
+      this.name = "";
+      this.lastName = "";
+      this.delegations = null;
+    }
+    else {
+      this.name = event.name;
+      this.lastName = event.lastName;
+      this.loadDelegations(event.email);
+    }
+  }
+
+  onChangeDel(event) {
     this.chosenId = event.id;
 
     if (event == "") {
