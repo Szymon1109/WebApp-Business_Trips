@@ -10,9 +10,9 @@ import {UserService} from "../user-service/user.service";
 })
 export class HomeComponent implements OnInit {
 
-  private socialLogged: boolean;
-  private userLogged: boolean;
-  private adminLogged: boolean;
+  public socialLogged: boolean;
+  public userLogged: boolean;
+  public adminLogged: boolean;
 
   constructor(private router: Router,
               private authService: AuthService,
