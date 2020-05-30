@@ -1,29 +1,58 @@
-.idea/
-.mvn/
 target/
-mvnw
-mvnw.cmd
-PSS-project.iml
-package-lock.json
-frontend/e2e
+!.mvn/wrapper/maven-wrapper.jar
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache/
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+# compiled output
+/target
+/dist
+/tmp
+/out-tsc
+
+# dependencies
+/node
 frontend/node_modules
-frontend/.angular-cli.json
-frontend/.editorconfig
-frontend/.gitignore
-frontend/karma.conf.js
-frontend/package.json
-frontend/package-lock.json
-frontend/protractor.conf.js
-frontend/README.md
-frontend/tsconfig.json
-frontend/tslint.json
-frontend/src/assets/.gitkeep
-frontend/src/environments
-frontend/src/favicon.ico
-frontend/src/main.ts
-frontend/src/polyfills.ts
-frontend/src/styles.css
-frontend/src/test.ts
-frontend/src/tsconfig.app.json
-frontend/src/tsconfig.spec.json
-frontend/src/typings.d.ts
+node/
+
+# IDEs and editors
+/.idea
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# misc
+/.sass-cache
+/connect.lock
+/coverage
+/libpeerconnection.log
+npm-debug.log
+testem.log
+/typings
+
+# e2e
+/e2e/*.map
+
+# System Files
+.DS_Store
+Thumbs.db
