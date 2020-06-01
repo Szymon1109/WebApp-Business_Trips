@@ -52,17 +52,17 @@ public class InitService {
         Set<Role> adminSet = new HashSet<>();
         adminSet.add(r2);
 
-        User u1 = new User("Alicja", "Nowak", "anianow@wp.pl",
-                passwordEncoder.encode("Pa$$word1"), "UTP", "Bydgoszcz, ul. Kaliskiego",
-                "1234567890", adminSet);
+        User u1 = new User("Szymon", "Betlewski", "szybet1@gmail.com",
+                passwordEncoder.encode("Kosciotrup1!"), "UTP", "Bydgoszcz, ul. Kaliskiego 7",
+                "5540313107", adminSet);
 
-        User u2 = new User("Piotr", "Kowalski", "piotr.kowalski@gmail.com",
-                passwordEncoder.encode("Pa$$word1"), "VI LO", "Bydgoszcz, ul. Staszica",
-                "3211231116", userSet);
+        User u2 = new User("Adam", "Nowak", "adam.nowak@gmail.com",
+                passwordEncoder.encode("Pa$$word1"), "VI Liceum Ogólnokształcące", "Bydgoszcz, ul. Staszica 4",
+                "5541101330", userSet);
 
         User u3 = new User(0L, "Julia", "Zielińska", "julia@ziel.pl",
-                passwordEncoder.encode("Pa$$word1"), "Google", "U.S. Dolina Krzemowa",
-                "1122334455", true, LocalDate.now().minusDays(2), userSet);
+                passwordEncoder.encode("Pa$$word1"), "UTP", "Bydgoszcz, ul. Kaliskiego 7",
+                "5540313107", true, LocalDate.now().minusDays(2), userSet);
 
         u1 = userRepository.save(u1);
         u2 = userRepository.save(u2);
@@ -80,7 +80,7 @@ public class InitService {
                 50, 0, null,
                 0, true, null);
 
-        Delegation d3 = new Delegation(0L, "Szkolenie w Warszawie", u3,
+        Delegation d3 = new Delegation(0L, "Szkolenie w Krakowie", u3,
                 LocalDateTime.now().minusHours(10), LocalDateTime.now().plusDays(1),
                 30, 2, 2, 1,
                 Transport.CAR, null, AutoCapacity.MEDIUM, 600,
