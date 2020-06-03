@@ -187,7 +187,7 @@ export class EditDelegPanelComponent implements OnInit {
       this.accPrice = event.accommodationPrice;
       this.othTicketsPrice = event.otherTicketsPrice.toString();
       this.othOutlayPrice = event.otherOutlayPrice.toString();
-      this.othOutlayDesc = event.otherOutlayDesc == null ? "-" : this.othOutlayDesc;
+      this.othOutlayDesc = event.otherOutlayDesc == null ? "-" : event.othOutlayDesc;
 
       if(this.transport == "car") {
         this.disableTicket = true;
