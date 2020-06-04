@@ -16,7 +16,7 @@ export class AuthService {
   }
 
   authenticationService(email: string, password: string) {
-    return this.http.get("http://localhost:8080/api/user/auth",
+    return this.http.get("/api/user/auth",
       { headers: { Authorization: 'Basic ' + btoa(email + ':' + password) }})
       .pipe(map(() => {
         this.setItems(email, password, "false");

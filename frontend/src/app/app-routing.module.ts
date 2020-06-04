@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import {Routes} from "@angular/router/src/config";
+import {Routes} from "@angular/router/esm5/src/config";
 import {RouterModule} from "@angular/router";
 import {LoginComponent} from "./login/login.component";
 import {RegisterComponent} from "./register/register.component";

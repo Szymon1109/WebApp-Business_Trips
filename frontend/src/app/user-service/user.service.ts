@@ -14,7 +14,7 @@ export class UserService {
 
   constructor(private http: HttpClient,
               private authService: AuthService) {
-    this.userUrl = 'http://localhost:8080/api/user';
+    this.userUrl = '/api/user';
   }
 
   public findAllUsers(): Observable<User[]> {

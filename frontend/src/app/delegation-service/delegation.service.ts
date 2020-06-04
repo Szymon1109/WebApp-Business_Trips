@@ -12,7 +12,7 @@ export class DelegationService {
 
   constructor(private http: HttpClient,
               private authService: AuthService) {
-    this.delegationUrl = 'http://localhost:8080/api/delegation';
+    this.delegationUrl = '/api/delegation';
   }
 
   public findByEmailAndConfirmation(isConfirmed: boolean): Observable<Delegation[]> {
