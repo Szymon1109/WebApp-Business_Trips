@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {map} from "rxjs/operators";
+import {environment} from "../../environments/environment";
 
 @Injectable()
 export class AuthService {
@@ -12,11 +13,13 @@ export class AuthService {
   private socialEmail = "admin";
   private socialPassword = "admin";
 
+  private AUTH_URL = environment.mainUrl + '/api/user/auth';
+
   constructor(private http: HttpClient) {
   }
 
   authenticationService(email: string, password: string) {
-    return this.http.get("/api/user/auth",
+    return this.http.get(this.AUTH_URL,
       { headers: { Authorization: 'Basic ' + btoa(email + ':' + password) }})
       .pipe(map(() => {
         this.setItems(email, password, "false");
